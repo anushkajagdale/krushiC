@@ -21,7 +21,7 @@
     <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/kogg/translate/translate.js"></script>
     <header class="top-nav">
         <div class="logo-container">
-            <img src="../images/logo.jpg" alt="कृषी Connect Logo" class="logo">
+            <img src="../images/logo.jpg" alt="कृषी Connect Logo" class="logo"> <!-- Ensure this path is correct -->
         </div>
         <h1>View Labour - कृषी Connect</h1>
         <nav>
@@ -60,7 +60,7 @@
     <script>
         async function loadLabour() {
             try {
-                const response = await fetch('http://localhost:3000/api/labour/all');
+                const response = await fetch('http://localhost:3000/api/labour/all'); // Corrected endpoint
                 if (!response.ok) throw new Error('Failed to fetch labour data');
                 const labourList = await response.json();
                 displayLabour(labourList);
@@ -97,7 +97,7 @@
             const location = document.getElementById('location-filter').value.trim().toLowerCase();
             const gender = document.getElementById('gender-filter').value;
 
-            fetch('http://localhost:3000/api/labour')
+            fetch('http://localhost:3000/api/labour/all')
                 .then(response => {
                     if (!response.ok) throw new Error('Failed to fetch labour data');
                     return response.json();

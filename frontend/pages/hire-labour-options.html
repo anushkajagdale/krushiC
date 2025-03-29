@@ -36,8 +36,13 @@
         async function loadLabourers() {
             try {
                 const response = await fetch('http://localhost:3000/api/labour/all');
-                const labourers = await response.json();
+                if (!response.ok) {
+                    const errorData = await response.json();
+                    console.error('Backend Error:', errorData);
+                    throw new Error('Failed to fetch labour data');
+                }
 
+                const labourers = await response.json();
                 const grid = document.getElementById('labourGrid');
                 grid.innerHTML = '';
 
@@ -54,9 +59,9 @@
                     grid.appendChild(card);
                 });
             } catch (error) {
-                console.error('Error:', error);
+                console.error('Error loading labourers:', error);
                 document.getElementById('labourGrid').innerHTML =
-                    '<p>Failed to load labourers. Please try again later.</p>';
+                    '<p style="color: red;">Failed to load labourers. Please try again later.</p>';
             }
         }
 

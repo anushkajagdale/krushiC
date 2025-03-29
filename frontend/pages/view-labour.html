@@ -93,29 +93,20 @@
         }
 
         function applyFilters() {
-            const maxPrice = parseFloat(document.getElementById('price-filter').value);
-            const location = document.getElementById('location-filter').value.trim().toLowerCase();
-            const gender = document.getElementById('gender-filter').value;
-
+            // Fetch all labourers without applying any filters
             fetch('http://localhost:3000/api/labour/all')
                 .then(response => {
                     if (!response.ok) throw new Error('Failed to fetch labour data');
                     return response.json();
                 })
                 .then(labourList => {
-                    const filteredLabour = labourList.filter(labour => {
-                        const matchesPrice = isNaN(maxPrice) || labour.rent_per_day <= maxPrice;
-                        const matchesLocation = !location || labour.location.toLowerCase().includes(location);
-                        const matchesGender = gender === 'any' || labour.gender.toLowerCase() === gender;
-                        return matchesPrice && matchesLocation && matchesGender;
-                    });
-
-                    displayLabour(filteredLabour);
+                    // Display all labourers without filtering
+                    displayLabour(labourList);
                 })
                 .catch(error => {
                     console.error('Error applying filters:', error);
                     const labourListContainer = document.getElementById('labour-list');
-                    labourListContainer.innerHTML = '<p style="color: red;">Failed to apply filters. Please try again later.</p>';
+                    labourListContainer.innerHTML = '<p style="color: red;">Failed to load labourers. Please try again later.</p>';
                 });
         }
 

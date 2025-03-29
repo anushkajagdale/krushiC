@@ -51,6 +51,7 @@ router.post('/register', async (req, res) => {
 
 router.get('/all', async (req, res) => {
     try {
+        console.log('Fetching all labourers...');
         const labourers = await Labour.find({});
         res.status(200).json(labourers);
     } catch (error) {

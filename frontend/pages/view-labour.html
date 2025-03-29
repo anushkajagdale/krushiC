@@ -60,7 +60,7 @@
     <script>
         async function loadLabour() {
             try {
-                const response = await fetch('http://localhost:3000/api/labour');
+                const response = await fetch('http://localhost:3000/api/labour/all');
                 if (!response.ok) throw new Error('Failed to fetch labour data');
                 const labourList = await response.json();
                 displayLabour(labourList);

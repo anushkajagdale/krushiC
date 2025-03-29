@@ -6,6 +6,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Register Labour - कृषी Connect</title>
     <link rel="stylesheet" href="../style.css">
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Poppins', sans-serif;
+            background: url('../images/register-background.jpeg') no-repeat center center fixed;
+            background-size: cover;
+        }
+    </style>
 </head>
 
 <body>
@@ -66,25 +74,37 @@
         async function submitLabourForm(event) {
             event.preventDefault();
             const form = document.getElementById('register-labour-form');
-            const formData = new FormData(form);
+            const formData = Object.fromEntries(new FormData(form));
+
+            // Convert rent_per_day to number
+            formData.rent_per_day = Number(formData.rent_per_day);
 
             try {
-                const response = await fetch('http://localhost:3000/api/labour/register', {
+                const response = await fetch('http://localhost:3000/api/labour/register', { // Ensure this matches the backend route
                     method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(Object.fromEntries(formData)),
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(formData)
                 });
 
                 if (!response.ok) {
-                    throw new Error('Failed to register labour');
+                    const errorData = await response.json();
+                    console.error('Backend Error:', errorData);
+                    throw new Error(errorData.error || 'Failed to register labour');
                 }
 
                 const result = await response.json();
-                alert('Labour registered successfully!');
-                form.reset();
+                if (result.success) {
+                    alert('Registration successful!');
+                    form.reset();
+                    window.location.href = 'hire-labour-options.html';
+                } else {
+                    throw new Error(result.error || 'Registration failed');
+                }
             } catch (error) {
                 console.error('Error registering labour:', error);
-                alert('An error occurred while registering the labour. Please try again.');
+                alert(error.message || 'Registration failed. Please try again.');
             }
         }
     </script>

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Available Labourers - कृषी Connect</title>
+    <style>
+        .labour-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            padding: 20px;
+        }
+
+        .labour-card {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>Available Labourers</h1>
+        <a href="../index.html">Back to Home</a>
+    </header>
+
+    <main>
+        <div class="labour-grid" id="labourGrid"></div>
+    </main>
+
+    <script>
+        async function loadLabourers() {
+            try {
+                const response = await fetch('http://localhost:3000/api/labour/all');
+                const labourers = await response.json();
+
+                const grid = document.getElementById('labourGrid');
+                grid.innerHTML = '';
+
+                labourers.forEach(labour => {
+                    const card = document.createElement('div');
+                    card.className = 'labour-card';
+                    card.innerHTML = `
+                        <h3>${labour.name}</h3>
+                        <p>Location: ${labour.location}</p>
+                        <p>Contact: ${labour.phone}</p>
+                        <p>Daily Rate: ₹${labour.rent_per_day}</p>
+                        <p>Gender: ${labour.gender}</p>
+                    `;
+                    grid.appendChild(card);
+                });
+            } catch (error) {
+                console.error('Error:', error);
+                document.getElementById('labourGrid').innerHTML =
+                    '<p>Failed to load labourers. Please try again later.</p>';
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', loadLabourers);
+    </script>
+</body>
+
+</html>

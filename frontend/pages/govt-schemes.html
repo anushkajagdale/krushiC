@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"="width=device-width, initial-scale=1.0">
+    <title>Government Schemes</title>
+    <link rel="stylesheet" href="../style.css">
+</head>
+
+<body>
+    <header class="top-nav">
+        <div class="logo-container">
+            <img src="../images/logo.jpg" alt="GrainConnect Logo" class="logo">
+        </div>
+        <h1>Government Schemes</h1>
+        <nav>
+            <a href="../index.html">Home</a>
+            <a href="marketplace.html">Marketplace</a>
+        </nav>
+    </header>
+    <main>
+        <section>
+            <h2 id="select-state-heading">Select Your State</h2>
+            <form id="state-form" onsubmit="loadSchemesByState(event)">
+                <label for="state-select" id="state-label">State:</label>
+                <select id="state-select" required>
+                    <option value="" disabled selected>Select your state</option>
+                    <!-- States will be dynamically loaded here -->
+                </select>
+                <button type="submit" id="view-schemes-button">View Schemes</button>
+            </form>
+        </section>
+        <section>
+            <h2 id="available-schemes-heading">Available Schemes for Farmers</h2>
+            <div id="schemes-list" class="schemes-grid">
+                <!-- Government schemes will be dynamically loaded here -->
+            </div>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2023 GrainConnect. All rights reserved.</p>
+    </footer>
+    <script src="../script.js"></script>
+    <script>
+        const DATA_GOV_API_URL = 'https://api.data.gov.in/resource/<RESOURCE_ID>'; // Replace <RESOURCE_ID> with the actual resource ID
+        const API_KEY = 'YOUR_API_KEY'; // Replace with your Data.gov.in API key
+
+        async function loadSchemesByState(event) {
+            event.preventDefault();
+            const state = document.getElementById('state-select').value;
+            const schemesList = document.getElementById('schemes-list');
+            schemesList.innerHTML = 'Loading schemes...';
+
+            try {
+                const response = await fetch(`${DATA_GOV_API_URL}?api-key=${API_KEY}&format=json&filters[state]=${encodeURIComponent(state)}`);
+                if (!response.ok) {
+                    throw new Error(`Failed to fetch schemes: ${response.status}`);
+                }
+
+                const data = await response.json();
+                const schemes = data.records;
+
+                if (schemes.length === 0) {
+                    schemesList.innerHTML = '<p>No schemes available for the selected state.</p>';
+                    return;
+                }
+
+                schemesList.innerHTML = '';
+                schemes.forEach(scheme => {
+                    const schemeCard = document.createElement('div');
+                    schemeCard.classList.add('scheme-card');
+                    schemeCard.innerHTML = `
+                        <h3>${scheme.scheme_name}</h3>
+                        <p>${scheme.description}</p>
+                        <a href="${scheme.link}" target="_blank" class="scheme-link">Learn More</a>
+                    `;
+                    schemesList.appendChild(schemeCard);
+                });
+            } catch (error) {
+                console.error('Error loading schemes:', error);
+                schemesList.innerHTML = '<p>Failed to load schemes. Please try again later.</p>';
+            }
+        }
+
+        const UMANG_API_URL = 'https://apigw.umangapp.in/umang/apisetu/dept/enamapi/ws1/getStateForMI';
+
+        async function fetchStatesFromUMANG() {
+            try {
+                const response = await fetch(UMANG_API_URL, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({}),
+                });
+
+                if (!response.ok) {
+                    throw new Error(`Failed to fetch states: ${response.status}`);
+                }
+
+                const data = await response.json();
+                const states = data?.data || [];
+                const stateSelect = document.getElementById('state-select');
+                stateSelect.innerHTML = '<option value="" disabled selected>Select your state</option>';
+
+                states.forEach(state => {
+                    const option = document.createElement('option');
+                    option.value = state.stateName;
+                    option.textContent = state.stateName;
+                    stateSelect.appendChild(option);
+                });
+            } catch (error) {
+                console.error('Error fetching states:', error);
+                alert('Failed to load states. Please try again later.');
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            fetchStatesFromUMANG();
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather Updates</title>
+    <link rel="stylesheet" href="../style.css">
+</head>
+
+<body>
+    <header class="top-nav">
+        <div class="logo-container">
+            <img src="../images/logo.jpg" alt="GrainConnect Logo" class="logo">
+        </div>
+        <h1>Weather Updates</h1>
+        <nav>
+            <a href="../index.html">Home</a>
+            <a href="marketplace.html">Marketplace</a>
+        </nav>
+    </header>
+    <main>
+        <section>
+            <h2>Select Your Location</h2>
+            <form onsubmit="fetchWeather(event)">
+                <label for="location">Location:</label>
+                <select id="location" required>
+                    <option value="" disabled selected>Select your location</option>
+                    <option value="New York">New York</option>
+                    <option value="Los Angeles">Los Angeles</option>
+                    <option value="Chicago">Chicago</option>
+                    <option value="Houston">Houston</option>
+                    <option value="Phoenix">Phoenix</option>
+                    <!-- Add more locations as needed -->
+                </select>
+                <button type="submit">Get Weather</button>
+            </form>
+            <div id="weather-updates">
+                <!-- Weather updates will be dynamically loaded here -->
+            </div>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2023 GrainConnect. All rights reserved.</p>
+    </footer>
+    <script src="../script.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sell Grains - कृषी Connect</title>
+    <link rel="stylesheet" href="../style.css">
+</head>
+
+<body>
+    <div id="google_translate_element"></div>
+    <script type="text/javascript">
+        function googleTranslateElementInit() {
+            new google.translate.TranslateElement({
+                pageLanguage: 'en',
+                includedLanguages: 'en,hi,mr,kn,ta,ml,gu,te,bn,pa,or',
+                layout: google.translate.TranslateElement.InlineLayout.SIMPLE
+            }, 'google_translate_element');
+        }
+    </script>
+    <script type="text/javascript"
+        src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+    <header class="top-nav">
+        <div class="logo-container">
+            <img src="../images/logo.jpg" alt="कृषी Connect Logo" class="logo">
+        </div>
+        <h1>Sell Grains</h1>
+        <nav>
+            <a href="../index.html">Home</a>
+            <a href="javascript:history.back()">Back</a>
+        </nav>
+    </header>
+    <main>
+        <section class="sell-grains-section">
+            <h2>Enter Grain Details</h2>
+            <div class="form-container">
+                <form id="sell-grains-form">
+                    <label for="grain-type">Grain Type:</label>
+                    <input type="text" id="grain-type" name="grain-type" placeholder="e.g., Wheat, Rice" required>
+
+                    <label for="quantity">Quantity (in kg):</label>
+                    <input type="number" id="quantity" name="quantity" placeholder="Enter quantity" required>
+
+                    <label for="price">Price (per kg):</label>
+                    <input type="number" id="price" name="price" placeholder="Enter price" required>
+
+                    <label for="location">Location:</label>
+                    <input type="text" id="location" name="location" placeholder="Enter your location" required>
+
+                    <label for="contact">Contact Number:</label>
+                    <input type="tel" id="contact" name="contact" placeholder="Enter your contact number" required>
+
+                    <label for="grain-image">Upload Grain Image:</label>
+                    <input type="file" id="grain-image" name="grain-image" accept="image/*" required>
+
+                    <button type="submit" class="submit-button">Submit</button>
+                </form>
+            </div>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2023 कृषी Connect. All rights reserved.</p>
+    </footer>
+    <script>
+        document.getElementById('sell-grains-form').addEventListener('submit', async function (event) {
+            event.preventDefault();
+
+            const formData = new FormData(event.target);
+            const grainDetails = {
+                name: formData.get('grain-type'),
+                image: formData.get('grain-image') ? formData.get('grain-image').name : '',
+                quantity: parseInt(formData.get('quantity'), 10),
+                price: parseFloat(formData.get('price')),
+                location: formData.get('location'),
+                sellerName: 'Seller Name', // Replace with actual seller name if available
+                sellerContact: formData.get('contact'),
+            };
+
+            try {
+                const response = await fetch('http://localhost:3000/api/products', {
+                    method: 'POST',
+                    body: JSON.stringify(grainDetails),
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                });
+
+                if (!response.ok) {
+                    const errorData = await response.json();
+                    console.error('Error from backend:', errorData);
+                    throw new Error('Failed to submit grain details');
+                }
+
+                alert('Your grain details have been submitted successfully!');
+            } catch (error) {
+                console.error('Error submitting grain details:', error);
+                alert('Failed to submit grain details. Please try again later.');
+            }
+        });
+    </script>
+    <style>
+        .sell-grains-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 30px;
+        }
+
+        .form-container {
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            padding: 20px;
+            width: 90%;
+            max-width: 500px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        label {
+            font-weight: bold;
+            color: #333;
+        }
+
+        input {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        input:focus {
+            border-color: #007bff;
+            outline: none;
+            box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+        }
+
+        input[type="file"] {
+            padding: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+            background-color: #fff;
+        }
+
+        input[type="file"]:focus {
+            border-color: #007bff;
+            outline: none;
+            box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+        }
+
+        .submit-button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .submit-button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</body>
+
+</html>

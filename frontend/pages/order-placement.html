@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Placement</title>
+    <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+    <header class="top-nav">
+        <div class="logo-container">
+            <img src="../images/logo.jpg" alt="GrainConnect Logo" class="logo">
+        </div>
+        <h1>Order Placement</h1>
+        <nav>
+            <a href="../index.html">Home</a>
+            <a href="marketplace.html">Marketplace</a>
+            <a href="order-management.html">Order Management</a>
+        </nav>
+    </header>
+    <main>
+        <h2>Place Your Order</h2>
+        <form onsubmit="placeOrder(event)">
+            <label for="quantity">Quantity:</label>
+            <input type="number" id="quantity" min="1" required />
+            <label for="delivery">Delivery Option:</label>
+            <select id="delivery">
+                <option value="standard">Standard</option>
+                <option value="express">Express</option>
+            </select>
+            <button type="submit">Confirm Order</button>
+        </form>
+    </main>
+    <footer>
+        <p>&copy; 2023 GrainConnect. All rights reserved.</p>
+    </footer>
+</body>
+</html>

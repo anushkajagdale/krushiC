@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grains - GrainConnect</title>
+    <link rel="stylesheet" href="../style.css">
+</head>
+
+<body>
+    <header class="top-nav">
+        <div class="logo-container">
+            <img src="../logo.jpg" alt="GrainConnect Logo" class="logo">
+        </div>
+        <h1>Grains</h1>
+        <nav>
+            <a href="../index.html">Home</a>
+            <a href="marketplace.html">Marketplace</a>
+            <a href="sellCattle.html">Sell Cattle</a>
+            <a href="labour-hiring.html">Hire Labour</a>
+        </nav>
+    </header>
+    <main>
+        <section class="main-options">
+            <h2>What would you like to do?</h2>
+            <div class="action-grid">
+                <button id="buy-grains-btn">Buy Grains</button>
+                <button id="sell-grains-btn">Sell Grains</button>
+            </div>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2023 GrainConnect. All rights reserved.</p>
+    </footer>
+    <script>
+        document.getElementById('buy-grains-btn').addEventListener('click', () => {
+            window.location.href = 'buy-grains.html';
+        });
+
+        document.getElementById('sell-grains-btn').addEventListener('click', () => {
+            window.location.href = 'sell-grains.html';
+        });
+    </script>
+</body>
+
+</html>

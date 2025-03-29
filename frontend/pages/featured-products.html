@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Featured Products</title>
+    <link rel="stylesheet" href="../style.css">
+</head>
+
+<body>
+    <header class="top-nav">
+        <div class="logo-container">
+            <img src="../images/logo.jpg" alt="GrainConnect Logo" class="logo">
+        </div>
+        <h1>Featured Products</h1>
+        <nav>
+            <a href="../index.html">Home</a>
+            <a href="marketplace.html">Marketplace</a>
+        </nav>
+    </header>
+    <main>
+        <section>
+            <h2>Featured Products</h2>
+            <div class="product-grid" id="featured-product-grid">
+                <!-- Featured products will be dynamically loaded here -->
+            </div>
+        </section>
+    </main>
+    <div id="product-modal" class="modal hidden">
+        <div class="modal-content">
+            <span class="close-button" onclick="closeModal()">&times;</span>
+            <img id="modal-image" src="" alt="Product Image" />
+            <h3 id="modal-title">Product Title</h3>
+            <p id="modal-description">Product description will appear here.</p>
+            <button onclick="navigateTo('order-placement.html')">Buy Now</button>
+        </div>
+    </div>
+    <footer>
+        <p>&copy; 2023 GrainConnect. All rights reserved.</p>
+    </footer>
+    <script src="../script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const featuredProducts = [
+                { id: 1, name: "Wheat", description: "High-quality wheat for sale.", image: "../images/wheat.jpg" },
+                { id: 2, name: "Rice", description: "Premium rice available.", image: "../images/rice.jpg" },
+                { id: 3, name: "Tractor", description: "Tractor available for rent.", image: "../images/tractor.jpg" }
+            ];
+
+            const productGrid = document.getElementById('featured-product-grid');
+            featuredProducts.forEach(product => {
+                const productCard = document.createElement('div');
+                productCard.classList.add('product-card');
+                productCard.innerHTML = `
+                    <img src="${product.image}" alt="${product.name}" />
+                    <h3>${product.name}</h3>
+                    <p>${product.description}</p>
+                    <button onclick="openModal(${product.id})">View Details</button>
+                `;
+                productGrid.appendChild(productCard);
+            });
+
+            window.openModal = (id) => {
+                const product = featuredProducts.find(p => p.id === id);
+                if (product) {
+                    document.getElementById('modal-image').src = product.image;
+                    document.getElementById('modal-title').textContent = product.name;
+                    document.getElementById('modal-description').textContent = product.description;
+                    document.getElementById('product-modal').classList.remove('hidden');
+                }
+            };
+
+            window.closeModal = () => {
+                document.getElementById('product-modal').classList.add('hidden');
+            };
+        });
+    </script>
+</body>
+
+</html>

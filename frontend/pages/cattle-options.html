@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cattle Options - कृषी Connect</title>
+    <link rel="stylesheet" href="../style.css">
+</head>
+
+<body>
+    <header class="top-nav">
+        <div class="logo-container">
+            <img src="../images/logo.jpg" alt="कृषी Connect Logo" class="logo">
+        </div>
+        <h1>Cattle Options</h1>
+        <nav>
+            <a href="../index.html">Home</a>
+            <a href="javascript:history.back()">Back</a>
+        </nav>
+    </header>
+    <main>
+        <section class="options">
+            <h2>Choose an Option</h2>
+            <div class="option-grid">
+                <div class="option-card" onclick="navigateTo('buy-cattle.html')">
+                    <h3>Buy Cattle</h3>
+                    <p>Explore and purchase high-quality cattle.</p>
+                </div>
+                <div class="option-card" onclick="navigateTo('sell-cattle.html')">
+                    <h3>Sell Cattle</h3>
+                    <p>List your cattle for sale and reach buyers.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2023 कृषी Connect. All rights reserved.</p>
+    </footer>
+    <script>
+        function navigateTo(page) {
+            window.location.href = page;
+        }
+    </script>
+    <style>
+        .option-grid {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .option-card {
+            padding: 20px;
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            text-align: center;
+            cursor: pointer;
+            transition: transform 0.2s, background-color 0.2s;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .option-card:hover {
+            transform: scale(1.05);
+            background-color: #f1f1f1;
+        }
+    </style>
+</body>
+
+</html>

@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register as Labour - कृषी Connect</title>
+    <link rel="stylesheet" href="../style.css">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: url('../images/register-background.jpg') no-repeat center center fixed;
+            background-size: cover;
+            margin: 0;
+            padding: 0;
+        }
+
+        .form-container {
+            max-width: 500px;
+            margin: 50px auto;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .form-container h2 {
+            text-align: center;
+            color: #0077B5;
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+            color: #333;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        .form-group input:focus {
+            border-color: #0077B5;
+            outline: none;
+            box-shadow: 0 0 5px rgba(0, 119, 181, 0.5);
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 10px;
+            background: #0077B5;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 18px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .submit-btn:hover {
+            background: #005f8b;
+        }
+    </style>
+</head>
+
+<body>
+    <header class="top-nav">
+        <div class="logo-container">
+            <img src="../images/logo.jpg" alt="कृषी Connect Logo" class="logo">
+        </div>
+        <h1>Register as Labour - कृषी Connect</h1>
+        <nav>
+            <a href="../index.html">Home</a>
+            <a href="hire-labour-options.html">Back</a>
+        </nav>
+    </header>
+    <main>
+        <div class="form-container">
+            <h2>Register Yourself as Labour</h2>
+            <form id="register-labour-form">
+                <div class="form-group">
+                    <label for="name">Name</label>
+                    <input type="text" id="name" name="name" placeholder="Enter your name" required>
+                </div>
+                <div class="form-group">
+                    <label for="location">Location</label>
+                    <input type="text" id="location" name="location" placeholder="Enter your location" required>
+                </div>
+                <div class="form-group">
+                    <label for="phone">Phone Number</label>
+                    <input type="tel" id="phone" name="phone" placeholder="Enter your phone number" required>
+                </div>
+                <div class="form-group">
+                    <label for="amount">Amount Required (per day)</label>
+                    <input type="number" id="amount" name="amount" placeholder="Enter amount in USD" required>
+                </div>
+                <div class="form-group">
+                    <label for="gender">Gender</label>
+                    <select id="gender" name="gender" required>
+                        <option value="male">Male</option>
+                        <option value="female">Female</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+                <button type="submit" class="submit-btn">Submit</button>
+            </form>
+        </div>
+    </main>
+    <footer>
+        <p>&copy; 2023 GrainConnect. All rights reserved.</p>
+    </footer>
+    <script>
+        document.getElementById('register-labour-form').addEventListener('submit', async function (event) {
+            event.preventDefault();
+            const name = document.getElementById('name').value.trim();
+            const location = document.getElementById('location').value.trim();
+            const phone = document.getElementById('phone').value.trim();
+            const amount = document.getElementById('amount').value.trim();
+            const gender = document.getElementById('gender').value;
+
+            if (name && location && phone && amount && gender) {
+                const labourData = { name, location, phone, rent_per_day: parseFloat(amount), gender };
+
+                try {
+                    const response = await fetch('http://localhost:3000/api/labour/register', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(labourData),
+                    });
+
+                    if (!response.ok) {
+                        const errorData = await response.json();
+                        throw new Error(errorData.error || 'Failed to register labour.');
+                    }
+
+                    const result = await response.json();
+                    alert(`Labour registered successfully! ID: ${result.id}`);
+                    document.getElementById('register-labour-form').reset();
+                } catch (error) {
+                    console.error('Error registering labour:', error);
+                    alert('Failed to register labour. Please check your input or try again later.');
+                }
+            } else {
+                alert('Please fill in all fields.');
+            }
+        });
+    </script>
+</body>
+
+</html>

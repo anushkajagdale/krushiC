@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Farmer Registration</title>
+    <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+    <header class="top-nav">
+        <div class="logo-container">
+            <img src="../images/logo.jpg" alt="GrainConnect Logo" class="logo">
+        </div>
+        <h1>Farmer Registration</h1>
+        <nav>
+            <a href="../index.html">Home</a>
+            <a href="profile.html">Profile</a>
+        </nav>
+    </header>
+    <main>
+        <h2>Register as a Farmer</h2>
+        <form id="registration-form" onsubmit="registerFarmer(event)">
+            <label for="name">Name:</label>
+            <input type="text" id="name" placeholder="Enter your name" required />
+            <label for="email">Email:</label>
+            <input type="email" id="email" placeholder="Enter your email" required />
+            <label for="phone">Phone Number:</label>
+            <input type="tel" id="phone" placeholder="Enter your phone number" required />
+            <button type="submit">Register</button>
+        </form>
+
+        <h2>Already Registered? Login Here</h2>
+        <form id="login-form" onsubmit="loginFarmer(event)">
+            <label for="login-email">Email:</label>
+            <input type="email" id="login-email" placeholder="Enter your email" required />
+            <button type="submit">Login</button>
+        </form>
+    </main>
+    <footer>
+        <p>&copy; 2023 GrainConnect. All rights reserved.</p>
+    </footer>
+    <script src="../script.js"></script>
+</body>
+</html>

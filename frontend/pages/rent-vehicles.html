@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rent Vehicles</title>
+    <link rel="stylesheet" href="../style.css">
+</head>
+
+<body>
+    <header class="top-nav">
+        <div class="logo-container">
+            <img src="../images/logo.jpg" alt="GrainConnect Logo" class="logo">
+        </div>
+        <h1>Rent Vehicles</h1>
+        <nav>
+            <a href="../index.html">Home</a>
+            <a href="marketplace.html">Marketplace</a>
+        </nav>
+    </header>
+    <main>
+        <section>
+            <h2>Available Vehicles for Rent</h2>
+            <div class="vehicle-grid" id="vehicle-grid">
+                <!-- Vehicles will be dynamically loaded here -->
+            </div>
+        </section>
+        <section>
+            <h2>Add Your Vehicle for Rent</h2>
+            <form id="vehicle-form" onsubmit="addVehicle(event)">
+                <label for="vehicle-type">Vehicle Type:</label>
+                <input type="text" id="vehicle-type" placeholder="Enter vehicle type" required />
+                <label for="vehicle-image">Vehicle Image:</label>
+                <input type="file" id="vehicle-image" accept="image/*" required />
+                <label for="vehicle-rent">Rent per day:</label>
+                <input type="number" id="vehicle-rent" min="1" placeholder="Enter rent per day" required />
+                <label for="vehicle-location">Location:</label>
+                <input type="text" id="vehicle-location" placeholder="Enter your location" required />
+                <button type="submit">Add Vehicle</button>
+            </form>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2023 GrainConnect. All rights reserved.</p>
+    </footer>
+    <script src="../script.js"></script>
+</body>
+
+</html>

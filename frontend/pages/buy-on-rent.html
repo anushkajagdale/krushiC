@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buy on Rent - कृषी Connect</title>
+    <link rel="stylesheet" href="../style.css">
+</head>
+
+<body>
+    <header class="top-nav">
+        <div class="logo-container">
+            <img src="../images/logo.jpg" alt="कृषी Connect Logo" class="logo">
+        </div>
+        <h1>Buy on Rent</h1>
+        <nav>
+            <a href="../index.html">Home</a>
+            <a href="javascript:history.back()">Back</a>
+        </nav>
+    </header>
+    <main>
+        <section class="equipment-list">
+            <h2>Available Equipment for Rent</h2>
+            <div id="equipment-list" class="product-grid">
+                <!-- Equipment cards will be dynamically loaded here -->
+            </div>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2023 कृषी Connect. All rights reserved.</p>
+    </footer>
+    <script>
+        async function loadEquipment() {
+            try {
+                const response = await fetch('http://localhost:3000/api/equipment');
+                if (!response.ok) throw new Error('Failed to fetch equipment data');
+                const equipmentList = await response.json();
+                displayEquipment(equipmentList);
+            } catch (error) {
+                console.error('Error loading equipment:', error);
+                const equipmentListContainer = document.getElementById('equipment-list');
+                equipmentListContainer.innerHTML = '<p style="color: red;">Failed to fetch equipment data. Please try again later.</p>';
+            }
+        }
+
+        function displayEquipment(equipmentList) {
+            const equipmentListContainer = document.getElementById('equipment-list');
+            equipmentListContainer.innerHTML = '';
+            if (equipmentList.length === 0) {
+                equipmentListContainer.innerHTML = '<p>No equipment available for rent.</p>';
+                return;
+            }
+            equipmentList.forEach(equipment => {
+                const equipmentCard = document.createElement('div');
+                equipmentCard.classList.add('product-card');
+                equipmentCard.innerHTML = `
+                    <img src="${equipment.image}" alt="${equipment.type}" class="product-image">
+                    <h3>${equipment.type}</h3>
+                    <p><strong>Rent per Day:</strong> $${equipment.rent}</p>
+                    <p><strong>Location:</strong> ${equipment.location}</p>
+                    <p><strong>Contact:</strong> ${equipment.sellerContact}</p>
+                `;
+                equipmentListContainer.appendChild(equipmentCard);
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', loadEquipment);
+    </script>
+    <style>
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .product-card {
+            padding: 15px;
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .product-card img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
+
+        .product-card h3 {
+            margin: 10px 0;
+            color: #333;
+        }
+
+        .product-card p {
+            margin: 5px 0;
+            color: #555;
+        }
+    </style>
+</body>
+
+</html>

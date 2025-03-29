@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Government Schemes - कृषी Connect</title>
+    <link rel="stylesheet" href="../style.css">
+</head>
+
+<body>
+    <div id="google_translate_element"></div>
+    <script type="text/javascript">
+        function googleTranslateElementInit() {
+            new google.translate.TranslateElement({
+                pageLanguage: 'en',
+                includedLanguages: 'en,hi,mr,kn,ta,ml,gu,te,bn,pa,or',
+                layout: google.translate.TranslateElement.InlineLayout.SIMPLE
+            }, 'google_translate_element');
+        }
+    </script>
+    <script type="text/javascript"
+        src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+    <header class="top-nav">
+        <div class="logo-container">
+            <img src="../images/logo.jpg" alt="कृषी Connect Logo" class="logo">
+        </div>
+        <h1>Government Schemes</h1>
+        <nav>
+            <a href="../index.html">Home</a>
+            <a href="javascript:history.back()">Back</a>
+        </nav>
+    </header>
+    <main>
+        <section class="filters">
+            <h2>Find Schemes by State</h2>
+            <div class="filter-options">
+                <label for="state-filter">Select State:</label>
+                <select id="state-filter">
+                    <option value="maharashtra">Maharashtra</option>
+                    <option value="karnataka">Karnataka</option>
+                    <option value="tamilnadu">Tamil Nadu</option>
+                    <option value="uttarpradesh">Uttar Pradesh</option>
+                    <option value="gujarat">Gujarat</option>
+                    <!-- Add more states as needed -->
+                </select>
+                <button onclick="fetchSchemes()">Get Schemes</button>
+            </div>
+        </section>
+        <section class="schemes-list">
+            <h2>Available Schemes</h2>
+            <div id="schemes-list" class="product-grid">
+                <!-- Schemes will be dynamically loaded here -->
+            </div>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2023 कृषी Connect. All rights reserved.</p>
+    </footer>
+    <script>
+        async function fetchSchemes() {
+            const state = document.getElementById('state-filter').value;
+            const apiKey = 'AIzaSyASz4XiVEZ68t0r8J7JKMxxCgvBe3dtAU0'; // Replace with your Gemini API key
+            const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
+
+            const requestBody = {
+                contents: [{
+                    parts: [{ text: `List government schemes for farmers in ${state}` }]
+                }]
+            };
+
+            try {
+                const response = await fetch(url, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(requestBody),
+                });
+
+                if (!response.ok) throw new Error('Failed to fetch schemes');
+
+                const data = await response.json();
+                displaySchemes(data.contents[0].parts[0].text);
+            } catch (error) {
+                console.error('Error fetching schemes:', error);
+                const schemesListContainer = document.getElementById('schemes-list');
+                schemesListContainer.innerHTML = '<p style="color: red;">Failed to fetch schemes. Please try again later.</p>';
+            }
+        }
+
+        function displaySchemes(schemesText) {
+            const schemesListContainer = document.getElementById('schemes-list');
+            schemesListContainer.innerHTML = '';
+
+            const schemes = schemesText.split('\n').filter(scheme => scheme.trim() !== '');
+            if (schemes.length === 0) {
+                schemesListContainer.innerHTML = '<p>No schemes available for the selected state.</p>';
+                return;
+            }
+
+            schemes.forEach(scheme => {
+                const schemeCard = document.createElement('div');
+                schemeCard.classList.add('product-card');
+                schemeCard.innerHTML = `<p>${scheme}</p>`;
+                schemesListContainer.appendChild(schemeCard);
+            });
+        }
+    </script>
+    <style>
+        .filters {
+            margin: 20px;
+            padding: 15px;
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        .filter-options {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .filter-options label {
+            font-weight: bold;
+        }
+
+        .filter-options select,
+        .filter-options button {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        .filter-options button {
+            background-color: #007bff;
+            color: #fff;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .filter-options button:hover {
+            background-color: #0056b3;
+        }
+
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .product-card {
+            padding: 15px;
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</body>
+
+</html>

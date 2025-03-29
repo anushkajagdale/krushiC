@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Labour - कृषी Connect</title>
+    <link rel="stylesheet" href="../style.css">
+</head>
+
+<body>
+    <div id="google_translate_element"></div>
+    <script type="text/javascript">
+        function googleTranslateElementInit() {
+            new google.translate.TranslateElement({
+                pageLanguage: 'en',
+                includedLanguages: 'en,hi,mr,kn,ta,ml,gu,te,bn,pa,or',
+                layout: google.translate.TranslateElement.InlineLayout.SIMPLE
+            }, 'google_translate_element');
+        }
+    </script>
+    <script type="text/javascript"
+        src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+    <header class="top-nav">
+        <div class="logo-container">
+            <img src="../images/logo.jpg" alt="कृषी Connect Logo" class="logo">
+        </div>
+        <h1>View Labour - कृषी Connect</h1>
+        <nav>
+            <a href="../index.html">Home</a>
+            <a href="hire-labour-options.html">Back</a>
+        </nav>
+    </header>
+    <main>
+        <section class="filters">
+            <h2>Filter Labour</h2>
+            <div class="filter-options">
+                <label for="price-filter">Max Price (per day):</label>
+                <input type="number" id="price-filter" placeholder="Enter max price">
+                <label for="location-filter">Location:</label>
+                <input type="text" id="location-filter" placeholder="Enter location">
+                <label for="gender-filter">Gender:</label>
+                <select id="gender-filter">
+                    <option value="any">Any</option>
+                    <option value="male">Male</option>
+                    <option value="female">Female</option>
+                    <option value="other">Other</option>
+                </select>
+                <button onclick="applyFilters()">Apply Filters</button>
+            </div>
+        </section>
+        <section class="labour-list">
+            <h2>Available Labour</h2>
+            <div id="labour-list" class="product-grid">
+                <!-- Labour cards will be dynamically loaded here -->
+            </div>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2023 GrainConnect. All rights reserved.</p>
+    </footer>
+    <script>
+        async function loadLabour() {
+            try {
+                const response = await fetch('http://localhost:3000/api/labour');
+                if (!response.ok) throw new Error('Failed to fetch labour data');
+                const labourList = await response.json();
+                displayLabour(labourList);
+            } catch (error) {
+                console.error('Error loading labour:', error);
+                const labourListContainer = document.getElementById('labour-list');
+                labourListContainer.innerHTML = '<p style="color: red;">Failed to fetch labour data. Please try again later.</p>';
+            }
+        }
+
+        function displayLabour(labourList) {
+            const labourListContainer = document.getElementById('labour-list');
+            labourListContainer.innerHTML = '';
+            if (labourList.length === 0) {
+                labourListContainer.innerHTML = '<p>No labourers available.</p>';
+                return;
+            }
+            labourList.forEach(labour => {
+                const labourCard = document.createElement('div');
+                labourCard.classList.add('product-card');
+                labourCard.innerHTML = `
+                    <h3>${labour.name}</h3>
+                    <p><strong>Location:</strong> ${labour.location}</p>
+                    <p><strong>Phone:</strong> ${labour.phone}</p>
+                    <p><strong>Gender:</strong> ${labour.gender}</p>
+                    <p><strong>Rent per Day:</strong> $${labour.rent_per_day}</p>
+                `;
+                labourListContainer.appendChild(labourCard);
+            });
+        }
+
+        function applyFilters() {
+            const maxPrice = parseFloat(document.getElementById('price-filter').value);
+            const location = document.getElementById('location-filter').value.trim().toLowerCase();
+            const gender = document.getElementById('gender-filter').value;
+
+            fetch('http://localhost:3000/api/labour')
+                .then(response => {
+                    if (!response.ok) throw new Error('Failed to fetch labour data');
+                    return response.json();
+                })
+                .then(labourList => {
+                    const filteredLabour = labourList.filter(labour => {
+                        const matchesPrice = isNaN(maxPrice) || labour.rent_per_day <= maxPrice;
+                        const matchesLocation = !location || labour.location.toLowerCase().includes(location);
+                        const matchesGender = gender === 'any' || labour.gender.toLowerCase() === gender;
+                        return matchesPrice && matchesLocation && matchesGender;
+                    });
+
+                    displayLabour(filteredLabour);
+                })
+                .catch(error => {
+                    console.error('Error applying filters:', error);
+                    const labourListContainer = document.getElementById('labour-list');
+                    labourListContainer.innerHTML = '<p style="color: red;">Failed to apply filters. Please try again later.</p>';
+                });
+        }
+
+        document.addEventListener('DOMContentLoaded', loadLabour);
+    </script>
+</body>
+
+</html>

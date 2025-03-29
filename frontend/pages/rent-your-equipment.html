@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rent Your Equipment - कृषी Connect</title>
+    <link rel="stylesheet" href="../style.css">
+</head>
+
+<body>
+    <header class="top-nav">
+        <div class="logo-container">
+            <img src="../images/logo.jpg" alt="कृषी Connect Logo" class="logo">
+        </div>
+        <h1>Rent Your Equipment</h1>
+        <nav>
+            <a href="../index.html">Home</a>
+            <a href="javascript:history.back()">Back</a>
+        </nav>
+    </header>
+    <main>
+        <section class="rent-equipment-section">
+            <h2>Enter Equipment Details</h2>
+            <div class="form-container">
+                <form id="rent-equipment-form">
+                    <label for="equipment-name">Equipment Name:</label>
+                    <input type="text" id="equipment-name" name="equipment-name" placeholder="e.g., Tractor, Harvester"
+                        required>
+
+                    <label for="equipment-image">Upload Equipment Image:</label>
+                    <input type="file" id="equipment-image" name="equipment-image" accept="image/*" required>
+
+                    <label for="rent-required">Rent Required (per day):</label>
+                    <input type="number" id="rent-required" name="rent-required" placeholder="Enter rent amount"
+                        required>
+
+                    <label for="location">Location:</label>
+                    <input type="text" id="location" name="location" placeholder="Enter your location" required>
+
+                    <label for="contact">Contact Number:</label>
+                    <input type="tel" id="contact" name="contact" placeholder="Enter your contact number" required>
+
+                    <label for="owner-name">Your Name:</label>
+                    <input type="text" id="owner-name" name="owner-name" placeholder="Enter your name" required>
+
+                    <button type="submit" class="submit-button">Submit</button>
+                </form>
+            </div>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2023 कृषी Connect. All rights reserved.</p>
+    </footer>
+    <script>
+        document.getElementById('rent-equipment-form').addEventListener('submit', async function (event) {
+            event.preventDefault();
+
+            const formData = new FormData(event.target);
+            const equipmentDetails = {
+                type: formData.get('equipment-name'), // Updated to match the "type" column in the schema
+                image: formData.get('equipment-image') ? formData.get('equipment-image').name : '',
+                rent: parseFloat(formData.get('rent-required')),
+                location: formData.get('location'),
+                sellerName: formData.get('owner-name'), // Matches "sellerName" in the schema
+                sellerContact: formData.get('contact'), // Matches "sellerContact" in the schema
+            };
+
+            try {
+                const response = await fetch('http://localhost:3000/api/equipment', {
+                    method: 'POST',
+                    body: JSON.stringify(equipmentDetails),
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                });
+
+                if (!response.ok) {
+                    const errorData = await response.json();
+                    console.error('Error from backend:', errorData);
+                    throw new Error('Failed to submit equipment details');
+                }
+
+                alert('Your equipment details have been submitted successfully!');
+            } catch (error) {
+                console.error('Error submitting equipment details:', error);
+                alert('Failed to submit equipment details. Please try again later.');
+            }
+        });
+    </script>
+    <style>
+        .rent-equipment-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 30px;
+        }
+
+        .form-container {
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            padding: 20px;
+            width: 90%;
+            max-width: 500px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        label {
+            font-weight: bold;
+            color: #333;
+        }
+
+        input {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        input:focus {
+            border-color: #007bff;
+            outline: none;
+            box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+        }
+
+        input[type="file"] {
+            padding: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+            background-color: #fff;
+        }
+
+        input[type="file"]:focus {
+            border-color: #007bff;
+            outline: none;
+            box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+        }
+
+        .submit-button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .submit-button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</body>
+
+</html>

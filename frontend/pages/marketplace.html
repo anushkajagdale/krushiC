@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Marketplace</title>
+    <link rel="stylesheet" href="../style.css">
+</head>
+
+<body>
+    <header class="top-nav">
+        <div class="logo-container">
+            <img src="../images/logo.jpg" alt="GrainConnect Logo" class="logo">
+        </div>
+        <h1>Marketplace</h1>
+        <nav>
+            <a href="../index.html">Home</a>
+            <a href="logistics.html">Logistics</a>
+            <a href="labour-hiring.html">Hire Labour</a>
+            <a href="help.html">Help</a>
+        </nav>
+    </header>
+    <main>
+        <section>
+            <h2>Welcome to the Marketplace</h2>
+            <p>Explore products, add your own, or find what you need. Switch between Buyer and Seller modes below.</p>
+            <div class="marketplace-options">
+                <button onclick="showSection('buyer-section')">Buyer</button>
+                <button onclick="showSection('seller-section')">Seller</button>
+            </div>
+        </section>
+
+        <!-- Buyer Section -->
+        <section id="buyer-section" class="hidden">
+            <h3>Find Products Near You</h3>
+            <form id="buyer-location-form" onsubmit="suggestProductsByLocation(event)" class="interactive-form">
+                <div class="form-group">
+                    <label for="buyer-name">Your Name:</label>
+                    <input type="text" id="buyer-name" placeholder="Enter your name" required />
+                </div>
+                <div class="form-group">
+                    <label for="buyer-contact">Contact Number:</label>
+                    <input type="text" id="buyer-contact" placeholder="Enter your contact number" required />
+                </div>
+                <div class="form-group">
+                    <label for="buyer-location">Your Location:</label>
+                    <input type="text" id="buyer-location" placeholder="Enter your location" required />
+                </div>
+                <div class="form-group">
+                    <label for="buyer-product">Product of Interest:</label>
+                    <select id="buyer-product" required>
+                        <option value="" disabled selected>Select a product</option>
+                        <option value="Grains">Grains</option>
+                        <option value="Cattle">Cattle</option>
+                        <option value="Equipment">Equipment</option>
+                    </select>
+                </div>
+                <button type="submit" class="submit-button">Find Products</button>
+            </form>
+            <h3>Available Products</h3>
+            <div class="product-grid" id="buyer-product-grid">
+                <!-- Products will be dynamically loaded here -->
+            </div>
+        </section>
+
+        <!-- Seller Section -->
+        <section id="seller-section" class="hidden">
+            <h3>Add Your Product</h3>
+            <form id="seller-form" onsubmit="addProduct(event)" class="interactive-form">
+                <div class="form-group">
+                    <label for="product-name">Product Name:</label>
+                    <input type="text" id="product-name" placeholder="Enter product name" required />
+                </div>
+                <div class="form-group">
+                    <label for="product-image">Product Image:</label>
+                    <input type="file" id="product-image" accept="image/*" required />
+                </div>
+                <div class="form-group">
+                    <label for="product-quantity">Quantity (kg):</label>
+                    <input type="number" id="product-quantity" min="1" placeholder="Enter quantity" required />
+                </div>
+                <div class="form-group">
+                    <label for="product-price">Price per kg:</label>
+                    <input type="number" id="product-price" min="1" placeholder="Enter price" required />
+                </div>
+                <div class="form-group">
+                    <label for="seller-location">Location:</label>
+                    <input type="text" id="seller-location" placeholder="Enter your location" required />
+                </div>
+                <div class="form-group">
+                    <label for="seller-name">Seller Name:</label>
+                    <input type="text" id="seller-name" placeholder="Enter your name" required />
+                </div>
+                <div class="form-group">
+                    <label for="seller-contact">Seller Contact:</label>
+                    <input type="text" id="seller-contact" placeholder="Enter your contact details" required />
+                </div>
+                <button type="submit" class="submit-button">Add Product</button>
+            </form>
+            <h3>Your Products</h3>
+            <div class="product-grid" id="seller-product-grid">
+                <!-- Seller's products will be dynamically loaded here -->
+            </div>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2023 GrainConnect. All rights reserved.</p>
+    </footer>
+    <script src="../script.js"></script>
+</body>
+
+</html>

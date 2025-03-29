@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile</title>
+    <link rel="stylesheet" href="../style.css">
+</head>
+
+<body>
+    <header class="top-nav">
+        <div class="logo-container">
+            <img src="../images/logo.jpg" alt="GrainConnect Logo" class="logo">
+        </div>
+        <h1>Profile</h1>
+        <nav>
+            <a href="../index.html">Home</a>
+            <a href="marketplace.html">Marketplace</a>
+            <a href="order-management.html">Orders</a>
+            <a href="help.html">Help</a>
+        </nav>
+    </header>
+    <main>
+        <section class="auth-actions">
+            <h2>Authentication</h2>
+            <div class="action-grid">
+                <button onclick="navigateTo('login.html')">Login</button>
+                <button onclick="navigateTo('signup.html')">Sign Up</button>
+            </div>
+        </section>
+        <section class="profile-section hidden" id="profile-details-section">
+            <h2>Your Profile</h2>
+            <div class="profile-box">
+                <img src="../images/profile-placeholder.png" alt="Profile Picture" class="profile-picture" />
+                <div class="profile-details">
+                    <h3 id="user-name">John Doe</h3>
+                    <p><strong>Email:</strong> <span id="user-email">john.doe@example.com</span></p>
+                    <p><strong>Phone:</strong> <span id="user-phone">+1 234 567 890</span></p>
+                    <p><strong>Location:</strong> <span id="user-location">New York, USA</span></p>
+                </div>
+            </div>
+        </section>
+        <section class="profile-actions hidden" id="profile-actions-section">
+            <h2>Quick Actions</h2>
+            <div class="action-grid">
+                <button onclick="navigateTo('marketplace.html')">View Marketplace</button>
+                <button onclick="navigateTo('order-management.html')">Manage Orders</button>
+                <button onclick="navigateTo('sellCattle.html')">Sell Cattle</button>
+                <button onclick="navigateTo('rent-equipment.html')">Rent Equipment</button>
+            </div>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2023 GrainConnect. All rights reserved.</p>
+    </footer>
+    <script>
+        // Simulate user login and display profile details
+        document.addEventListener('DOMContentLoaded', () => {
+            const isLoggedIn = true; // Replace with actual login check
+            if (isLoggedIn) {
+                document.getElementById('profile-details-section').classList.remove('hidden');
+                document.getElementById('profile-actions-section').classList.remove('hidden');
+            }
+        });
+    </script>
+    <script src="../script.js"></script>
+</body>
+
+</html>

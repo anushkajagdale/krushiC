@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sell Cattle - कृषी Connect</title>
+    <link rel="stylesheet" href="../style.css">
+</head>
+
+<body>
+    <header class="top-nav">
+        <div class="logo-container">
+            <img src="../images/logo.jpg" alt="कृषी Connect Logo" class="logo">
+        </div>
+        <h1>Sell Cattle</h1>
+        <nav>
+            <a href="../index.html">Home</a>
+        </nav>
+    </header>
+    <main>
+        <section class="sell-cattle-form">
+            <h2>Provide Cattle Details</h2>
+            <form id="sell-cattle-form" onsubmit="submitCattleForm(event)">
+                <label for="cattle-type">Cattle Type:</label>
+                <input type="text" id="cattle-type" name="cattleType" placeholder="e.g., Cow, Buffalo" required>
+
+                <label for="breed">Breed:</label>
+                <input type="text" id="breed" name="breed" placeholder="e.g., Jersey, Murrah" required>
+
+                <label for="image">Cattle Image:</label>
+                <input type="file" id="image" name="image" accept="image/*" required>
+
+                <label for="price">Price to Sell At:</label>
+                <input type="number" id="price" name="price" placeholder="Enter price in INR" required>
+
+                <label for="name">Your Name:</label>
+                <input type="text" id="name" name="name" placeholder="Enter your name" required>
+
+                <label for="contact">Contact Number:</label>
+                <input type="tel" id="contact" name="contact" placeholder="Enter your contact number" required>
+
+                <label for="address">Address:</label>
+                <textarea id="address" name="address" placeholder="Enter your address" required></textarea>
+
+                <button type="submit">Submit</button>
+            </form>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2023 कृषी Connect. All rights reserved.</p>
+    </footer>
+    <script>
+        function submitCattleForm(event) {
+            event.preventDefault();
+            const formData = new FormData(document.getElementById('sell-cattle-form'));
+            console.log('Cattle Details Submitted:', Object.fromEntries(formData.entries()));
+            alert('Your cattle details have been submitted successfully!');
+        }
+    </script>
+</body>
+
+</html>

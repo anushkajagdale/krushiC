@@ -6,6 +6,8 @@ const mongoose = require('mongoose');
 const cattleRoutes = require('./routes/cattle');
 const dealCattleRoutes = require('./routes/deal-cattle');
 const sellCattleRoutes = require('./routes/sell-cattle');
+const grainRoutes = require('./routes/grains');
+const equipmentRoutes = require('./routes/equipment');
 const path = require('path');
 const app = express();
 const port = 3000;
@@ -252,6 +254,12 @@ app.use('/api/deal-cattle', dealCattleRoutes);
 
 // Sell Cattle routes
 app.use('/api/sell-cattle', sellCattleRoutes);
+
+// Grain routes
+app.use('/api/grains', grainRoutes);
+
+// Equipment routes
+app.use('/api/equipment', equipmentRoutes);
 
 app.listen(port, () => {
     console.log(`Server is running on http://localhost:${port}`);

@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grains - कृषी Connect</title>
+    <link rel="stylesheet" href="../style.css">
+</head>
+
+<body>
+    <header class="top-nav">
+        <div class="logo-container">
+            <img src="../images/logo.jpg" alt="कृषी Connect Logo" class="logo">
+        </div>
+        <h1>Grains</h1>
+        <nav>
+            <a href="../index.html">Home</a>
+        </nav>
+    </header>
+    <main>
+        <section class="grains-list">
+            <h2>Available Grains</h2>
+            <div id="grains-list" class="product-grid">
+                <!-- Grain cards will be dynamically loaded here -->
+            </div>
+        </section>
+        <section class="add-grain-form">
+            <h2>Add Grain</h2>
+            <form id="add-grain-form" onsubmit="submitGrainForm(event)">
+                <label for="name">Grain Name:</label>
+                <input type="text" id="name" name="name" placeholder="e.g., Wheat, Rice" required>
+
+                <label for="quantity">Quantity (in kg):</label>
+                <input type="number" id="quantity" name="quantity" placeholder="Enter quantity" required>
+
+                <label for="price">Price (per kg):</label>
+                <input type="number" id="price" name="price" placeholder="Enter price" required>
+
+                <label for="location">Location:</label>
+                <input type="text" id="location" name="location" placeholder="Enter location" required>
+
+                <label for="sellerName">Seller Name:</label>
+                <input type="text" id="sellerName" name="sellerName" placeholder="Enter your name" required>
+
+                <label for="sellerContact">Seller Contact:</label>
+                <input type="tel" id="sellerContact" name="sellerContact" placeholder="Enter your contact number"
+                    required>
+
+                <label for="image">Grain Image:</label>
+                <input type="file" id="image" name="image" accept="image/*" required>
+
+                <button type="submit">Add Grain</button>
+            </form>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2023 कृषी Connect. All rights reserved.</p>
+    </footer>
+    <script>
+        async function loadGrains() {
+            try {
+                const response = await fetch('http://localhost:3000/api/grains');
+                if (!response.ok) throw new Error('Failed to fetch grains');
+                const grains = await response.json();
+                displayGrains(grains);
+            } catch (error) {
+                console.error('Error loading grains:', error);
+            }
+        }
+
+        function displayGrains(grains) {
+            const grainsList = document.getElementById('grains-list');
+            grainsList.innerHTML = '';
+            grains.forEach(grain => {
+                const grainCard = document.createElement('div');
+                grainCard.classList.add('product-card');
+                grainCard.innerHTML = `
+                    <img src="../uploads/${grain.image}" alt="${grain.name}">
+                    <h3>${grain.name}</h3>
+                    <p><strong>Quantity:</strong> ${grain.quantity} kg</p>
+                    <p><strong>Price:</strong> ₹${grain.price}/kg</p>
+                    <p><strong>Location:</strong> ${grain.location}</p>
+                    <p><strong>Seller:</strong> ${grain.sellerName}</p>
+                    <p><strong>Contact:</strong> ${grain.sellerContact}</p>
+                `;
+                grainsList.appendChild(grainCard);
+            });
+        }
+
+        async function submitGrainForm(event) {
+            event.preventDefault();
+            const form = document.getElementById('add-grain-form');
+            const formData = new FormData(form);
+
+            try {
+                const response = await fetch('http://localhost:3000/api/grains', {
+                    method: 'POST',
+                    body: formData,
+                });
+
+                if (!response.ok) throw new Error('Failed to add grain');
+                alert('Grain added successfully!');
+                form.reset();
+                loadGrains();
+            } catch (error) {
+                console.error('Error adding grain:', error);
+                alert('An error occurred while adding the grain. Please try again.');
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', loadGrains);
+    </script>
+</body>
+
+</html>

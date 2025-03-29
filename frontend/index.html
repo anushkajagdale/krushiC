@@ -14,13 +14,6 @@
             background-size: cover;
         }
 
-        #google_translate_element {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            z-index: 1000;
-        }
-
         .category-box {
             margin: 10px;
             padding: 15px;
@@ -58,23 +51,6 @@
             <button type="submit">Search</button>
         </form>
     </header>
-    <div id="google_translate_element"></div>
-    <script>
-        function googleTranslateElementInit() {
-            new google.translate.TranslateElement({
-                pageLanguage: 'en',
-                includedLanguages: 'en,hi,mr,kn,ta,ml,gu,te,bn,pa,or',
-                layout: google.translate.TranslateElement.InlineLayout.SIMPLE
-            }, 'google_translate_element');
-        }
-    </script>
-    <script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
-    <script>
-        // Redirect to login page if not logged in
-        if (localStorage.getItem('isLoggedIn') !== 'true') {
-            window.location.href = 'pages/login.html';
-        }
-    </script>
     <main>
         <section class="hero">
             <div class="carousel">
@@ -168,41 +144,6 @@
     <script>
         function navigateTo(page) {
             window.location.href = page;
-        }
-
-        async function translateWebsite() {
-            const targetLanguage = document.getElementById('language-select').value;
-            const apiKey = 'YOUR_GOOGLE_CLOUD_API_KEY'; // Replace with your Google Cloud API key
-            const elementsToTranslate = document.querySelectorAll('[data-translate]');
-
-            for (const element of elementsToTranslate) {
-                const text = element.innerText || element.placeholder;
-                try {
-                    const response = await fetch(
-                        `https://translation.googleapis.com/language/translate/v2?key=${apiKey}`,
-                        {
-                            method: 'POST',
-                            headers: { 'Content-Type': 'application/json' },
-                            body: JSON.stringify({
-                                q: text,
-                                target: targetLanguage,
-                            }),
-                        }
-                    );
-
-                    if (!response.ok) throw new Error('Translation API error');
-                    const data = await response.json();
-                    const translatedText = data.data.translations[0].translatedText;
-
-                    if (element.tagName === 'INPUT') {
-                        element.placeholder = translatedText;
-                    } else {
-                        element.innerText = translatedText;
-                    }
-                } catch (error) {
-                    console.error('Error translating text:', error);
-                }
-            }
         }
     </script>
 </body>

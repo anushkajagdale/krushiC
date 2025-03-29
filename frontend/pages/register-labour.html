@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register Labour - कृषी Connect</title>
+    <link rel="stylesheet" href="../style.css">
+</head>
+
+<body>
+    <header class="top-nav">
+        <div class="logo-container">
+            <img src="../images/logo.jpg" alt="कृषी Connect Logo" class="logo">
+        </div>
+        <h1>Register Labour</h1>
+        <nav>
+            <a href="../index.html">Home</a>
+        </nav>
+    </header>
+    <main>
+        <section class="register-labour-form">
+            <h2>Provide Labour Details</h2>
+            <form id="register-labour-form" onsubmit="submitLabourForm(event)">
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name" placeholder="Enter labourer's name" required>
+
+                <label for="location">Location:</label>
+                <input type="text" id="location" name="location" placeholder="Enter location" required>
+
+                <label for="phone">Phone:</label>
+                <input type="tel" id="phone" name="phone" placeholder="Enter phone number" required>
+
+                <label for="rent_per_day">Rent per Day (in INR):</label>
+                <input type="number" id="rent_per_day" name="rent_per_day" placeholder="Enter rent per day" required>
+
+                <label for="gender">Gender:</label>
+                <select id="gender" name="gender" required>
+                    <option value="male">Male</option>
+                    <option value="female">Female</option>
+                    <option value="other">Other</option>
+                </select>
+
+                <button type="submit">Register</button>
+            </form>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2023 कृषी Connect. All rights reserved.</p>
+    </footer>
+    <script>
+        async function submitLabourForm(event) {
+            event.preventDefault();
+            const form = document.getElementById('register-labour-form');
+            const formData = new FormData(form);
+
+            try {
+                const response = await fetch('http://localhost:3000/api/labour/register', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(Object.fromEntries(formData)),
+                });
+
+                if (!response.ok) {
+                    throw new Error('Failed to register labour');
+                }
+
+                const result = await response.json();
+                alert('Labour registered successfully!');
+                form.reset();
+            } catch (error) {
+                console.error('Error registering labour:', error);
+                alert('An error occurred while registering the labour. Please try again.');
+            }
+        }
+    </script>
+</body>
+
+</html>

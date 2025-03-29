@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>कृषी Connect</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Poppins', sans-serif;
+            background: url('images.jpg') no-repeat center center fixed;
+            background-size: cover;
+        }
+
+        .category-box {
+            margin: 10px;
+            padding: 15px;
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            text-align: center;
+        }
+
+        .category-box .button {
+            display: inline-block;
+            margin-top: 10px;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+
+        .category-box .button:hover {
+            background-color: #0056b3;
+        }
+
+        #google_translate_element {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            z-index: 1000;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="google_translate_element"></div>
+    <script type="text/javascript">
+        function googleTranslateElementInit() {
+            new google.translate.TranslateElement({
+                pageLanguage: 'en',
+                includedLanguages: 'en,hi,mr,kn,ta,ml,gu,te,bn,pa,or',
+                layout: google.translate.TranslateElement.InlineLayout.SIMPLE
+            }, 'google_translate_element');
+        }
+    </script>
+    <script type="text/javascript"
+        src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+    <header class="top-nav">
+        <div class="logo-container">
+            <img src="logo.jpg" alt="कृषी Connect Logo" class="logo">
+        </div>
+        <h1 id="welcome-text" data-translate="welcome">Welcome to कृषी Connect</h1>
+        <form class="search-bar" onsubmit="search(event)">
+            <input type="text" id="search-input" placeholder="Search for grains, cattle, or equipment..."
+                data-translate="searchPlaceholder" />
+            <button type="submit">Search</button>
+        </form>
+    </header>
+    <main>
+        <section class="hero">
+            <div class="carousel">
+                <div class="carousel-images">
+                    <img src="grain.jpg" alt="Grains">
+                    <img src="cow.jpeg" alt="Cattle">
+                    <img src="tractor.jpg" alt="Tractor">
+                    <img src="ai-generated-agricultural-workers.jpg" alt="Agricultural Workers">
+                    <img src="sheepjpg.jpg" alt="Sheep">
+                    <img src="abuffalo-photo.jpg" alt="Buffalo">
+                    <img src="ars-grains.jpg" alt="Grains Field">
+                    <img src="goat.jpg" alt="Goat">
+                    <img src="photo-1542838132-92c53300491e.avif" alt="Field">
+                    <img src="photo-1471193945509-9ad0617afabf.avif" alt="Tractor in Field">
+                    <img src="PROD_Millets.jpg" alt="Millets">
+                    <img src="sunseed.jpg" alt="Sunflower Seeds">
+                    <img src="seed.jpg" alt="Seeds">
+                </div>
+                <button class="carousel-button prev" onclick="prevSlide()">&#10094;</button>
+                <button class="carousel-button next" onclick="nextSlide()">&#10095;</button>
+            </div>
+            <div class="hero-content">
+                <h2>Welcome to कृषी Connect</h2>
+                <p>Your one-stop platform for grains, cattle, and farming equipment.</p>
+                <button onclick="navigateTo('pages/marketplace.html')">Explore Marketplace</button>
+            </div>
+        </section>
+        <section class="featured-section">
+            <h2 id="featured-categories-heading">Featured Categories</h2>
+            <div class="category-grid">
+                <div class="category-card" onclick="navigateTo('pages/grains.html')">
+                    <div class="category-content">
+                        <img src="grain.jpg" alt="Grains">
+                        <h3>Grains</h3>
+                        <p>Explore a variety of high-quality grains.</p>
+                    </div>
+                </div>
+                <div class="category-card" onclick="navigateTo('pages/cattle-options.html')">
+                    <div class="category-content">
+                        <img src="cow.jpeg" alt="Cattle">
+                        <h3>Cattle</h3>
+                        <p>Buy and sell cattle with ease.</p>
+                    </div>
+                </div>
+                <div class="category-card" onclick="navigateTo('pages/rent-equipment.html')">
+                    <div class="category-content">
+                        <img src="tractor.jpg" alt="Tractor">
+                        <h3>Farming Equipment</h3>
+                        <p>Rent or buy farming equipment.</p>
+                    </div>
+                </div>
+                <div class="category-card" onclick="navigateTo('pages/hire-labour-options.html')">
+                    <img src="farmer/ai-generated-agricultural-workers.jpg" alt="Hire Labour">
+                    <div class="category-content">
+                        <h3>Hire Labour</h3>
+                        <p>Find skilled agricultural workers.</p>
+                    </div>
+                </div>
+                <div class="category-card" onclick="navigateTo('pages/government-schemes.html')">
+                    <img src="farmer/government-schemes.jpg" alt="Government Schemes">
+                    <div class="category-content">
+                        <h3>Government Schemes</h3>
+                        <p>Explore various government schemes available for farmers.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="trending-listings">
+            <h2>Trending Listings</h2>
+            <div class="product-grid" id="trending-listings-grid">
+                <!-- Trending listings will be dynamically loaded here -->
+            </div>
+        </section>
+        <section class="featured-section">
+            <h2>Featured Farmers & Workers</h2>
+            <div class="featured-grid" id="featured-grid">
+                <!-- Featured farmers and workers will be dynamically loaded here -->
+            </div>
+        </section>
+        <section class="recent-listings">
+            <h2>Recent Listings</h2>
+            <div class="product-grid" id="recent-listings-grid">
+                <!-- Recent listings will be dynamically loaded here -->
+            </div>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2023 कृषी Connect. All rights reserved.</p>
+    </footer>
+    <script src="script.js"></script>
+    <script>
+        function navigateTo(page) {
+            window.location.href = page;
+        }
+    </script>
+</body>
+
+</html>

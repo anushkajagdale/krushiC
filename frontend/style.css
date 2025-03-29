@@ -1,0 +1,8 @@
+/* ...existing code... */
+body {
+    background: url('../images/images.jpeg') no-repeat center center fixed;
+    /* Corrected path */
+    background-size: cover;
+}
+
+/* ...existing code... */

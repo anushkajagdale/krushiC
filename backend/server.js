@@ -2,11 +2,19 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const sqlite3 = require('sqlite3').verbose();
+const mongoose = require('mongoose');
+const cattleRoutes = require('./routes/cattle');
+const dealCattleRoutes = require('./routes/deal-cattle');
+const sellCattleRoutes = require('./routes/sell-cattle');
+const path = require('path');
 const app = express();
 const port = 3000;
 
 app.use(cors());
 app.use(bodyParser.json());
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 // Initialize SQLite database
 const db = new sqlite3.Database('./database/farmer.db', (err) => {
@@ -228,6 +236,22 @@ app.get('/', (req, res) => {
 app.use((req, res) => {
     res.status(404).json({ error: 'Endpoint not found' });
 });
+
+// MongoDB connection
+mongoose.connect('mongodb://localhost:27017/kurshiconnect', {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+}).then(() => console.log('Connected to MongoDB'))
+    .catch(err => console.error('MongoDB connection error:', err));
+
+// Cattle routes
+app.use('/api/cattle', cattleRoutes);
+
+// Cattle deal routes
+app.use('/api/deal-cattle', dealCattleRoutes);
+
+// Sell Cattle routes
+app.use('/api/sell-cattle', sellCattleRoutes);
 
 app.listen(port, () => {
     console.log(`Server is running on http://localhost:${port}`);

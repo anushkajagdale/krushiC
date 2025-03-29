@@ -8,6 +8,7 @@ const dealCattleRoutes = require('./routes/deal-cattle');
 const sellCattleRoutes = require('./routes/sell-cattle');
 const grainRoutes = require('./routes/grains');
 const equipmentRoutes = require('./routes/equipment');
+const labourRoutes = require('./routes/labour');
 const path = require('path');
 const app = express();
 const port = 3000;
@@ -260,6 +261,9 @@ app.use('/api/grains', grainRoutes);
 
 // Equipment routes
 app.use('/api/equipment', equipmentRoutes);
+
+// Labour routes
+app.use('/api/labour', labourRoutes);
 
 app.listen(port, () => {
     console.log(`Server is running on http://localhost:${port}`);

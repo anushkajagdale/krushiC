@@ -9,6 +9,20 @@
 </head>
 
 <body>
+    <div id="google_translate_element"></div>
+    <script type="text/javascript">
+        function googleTranslateElementInit() {
+            new google.translate.TranslateElement({
+                pageLanguage: 'en',
+                includedLanguages: 'hi,mr,te,ta,pa,bn,gu,kn,ml', // Add your preferred languages
+                layout: google.translate.TranslateElement.InlineLayout.SIMPLE
+            }, 'google_translate_element');
+        }
+    </script>
+    <script type="text/javascript"
+        src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/kogg/translate/translate.js"></script>
+
     <header class="top-nav">
         <div class="logo-container">
             <img src="../images/logo.jpg" alt="कृषी Connect Logo" class="logo">

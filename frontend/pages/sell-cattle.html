@@ -6,6 +6,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sell Cattle - कृषी Connect</title>
     <link rel="stylesheet" href="../style.css">
+    <script type="text/javascript">
+        function googleTranslateElementInit() {
+            new google.translate.TranslateElement({
+                pageLanguage: 'en',
+                includedLanguages: 'en,hi,mr,kn,ta,ml,gu,te,bn,pa,or',
+                layout: google.translate.TranslateElement.InlineLayout.SIMPLE
+            }, 'google_translate_element');
+        }
+    </script>
+    <script type="text/javascript"
+        src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 </head>
 
 <body>
@@ -31,6 +42,10 @@
         <nav>
             <a href="../index.html">Home</a>
         </nav>
+        <div class="nav-buttons">
+            <button onclick="navigateTo('../index.html')">Home</button>
+            <button onclick="history.back()">Back</button>
+        </div>
     </header>
     <main>
         <section class="sell-cattle-form">
@@ -52,43 +67,51 @@
                 <input type="text" id="name" name="name" placeholder="Enter your name" required>
 
                 <label for="contact">Contact Number:</label>
-                <input type="tel" id="contact" name="contact" placeholder="Enter your contact number" required>
-
-                <label for="address">Address:</label>
+                <input type="tel" id="contact" name="contact" placeholder="Enter your contact number" required>align:
+                center; padding: 10px; background-color: rgba(0, 0, 0, 0.7); color: white;">
+                opy; 2023 कृषी Connect. All rights reserved.</p>
+                <label for="address">Address:</label>>
                 <textarea id="address" name="address" placeholder="Enter your address" required></textarea>
-
+                Form(event) {
                 <button type="submit">Submit</button>
-            </form>
-        </section>
+            </form>('sell-cattle-form');
+        </section> const formData = new FormData(form);
     </main>
-    <footer>
-        <p>&copy; 2023 कृषी Connect. All rights reserved.</p>
+    <footer
+        style="position: fixed; bottom: 0; width: 100%; text-align: center; padding: 10px; background-color: rgba(0, 0, 0, 0.7); color: white;">
+        <p>&copy; 2023 कृषी Connect. All rights reserved.</p>ait fetch('http://localhost:3000/api/cattle', {
     </footer>
-    <script>
-        async function submitCattleForm(event) {
-            event.preventDefault();
-            const form = document.getElementById('sell-cattle-form');
-            const formData = new FormData(form);
-
-            try {
-                const response = await fetch('http://localhost:3000/api/cattle', {
-                    method: 'POST',
-                    body: formData,
-                });
-
-                if (!response.ok) {
-                    throw new Error('Failed to submit cattle details');
+    <script> body: formData,
+            async function submitCattleForm(event) { });
+        event.preventDefault();
+        const form = document.getElementById('sell-cattle-form');
+        const formData = new FormData(form); throw new Error('Failed to submit cattle details');
                 }
+        try {
+            const response = await fetch('http://localhost:3000/api/cattle', {
+                method: 'POST', attle details have been submitted successfully!');
+                    body: formData,
+            });
 
-                const result = await response.json();
-                alert('Your cattle details have been submitted successfully!');
-                form.reset();
-            } catch (error) {
-                console.error('Error submitting cattle details:', error);
+            if (!response.ok) {
                 alert('An error occurred while submitting your details. Please try again.');
+                throw new Error('Failed to submit cattle details');
             }
         }
-    </script>
-</body>
+cript >
+                const result = await response.json();</body >
+            alert('Your cattle details have been submitted successfully!');
+
+
+
+
+
+
+
+
+
+
+</html ></body >    </script> } } alert('An error occurred while submitting your details. Please try again.');
+    console.error('Error submitting cattle details:', error); } catch (error) { form.reset();
 
 </html>

@@ -52,6 +52,24 @@
             background-color: #0056b3;
         }
 
+        .nav-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .nav-buttons button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .nav-buttons button:hover {
+            background-color: #0056b3;
+        }
+
         .category-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -84,6 +102,9 @@
         }
 
         footer {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
             text-align: center;
             padding: 10px;
             background-color: rgba(0, 0, 0, 0.7);
@@ -97,21 +118,21 @@
             text-align: center;
         }
     </style>
-</head>
-
-<body>
-    <div id="google_translate_element"></div>
     <script type="text/javascript">
         function googleTranslateElementInit() {
             new google.translate.TranslateElement({
                 pageLanguage: 'en',
-                includedLanguages: 'hi,mr,te,ta,pa,bn,gu,kn,ml',
+                includedLanguages: 'en,hi,mr,kn,ta,ml,gu,te,bn,pa,or',
                 layout: google.translate.TranslateElement.InlineLayout.SIMPLE
             }, 'google_translate_element');
         }
     </script>
     <script type="text/javascript"
-        src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+        src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+</head>
+
+<body>
+    <div id="google_translate_element"></div>
     <header class="top-nav">
         <div class="logo-container">
             <img src="images/logo.jpg" alt="कृषी Connect Logo">
@@ -139,6 +160,7 @@
                     <div class="category-content">
                         <h3>Grains</h3>
                         <p>Explore a variety of high-quality grains.</p>
+                        <button onclick="navigateTo('pages/grains.html')">Click Here</button>
                     </div>
                 </div>
                 <div class="category-card" onclick="navigateTo('pages/cattle-options.html')">
@@ -146,6 +168,7 @@
                     <div class="category-content">
                         <h3>Cattle</h3>
                         <p>Buy and sell cattle with ease.</p>
+                        <button onclick="navigateTo('pages/cattle-options.html')">Click Here</button>
                     </div>
                 </div>
                 <div class="category-card" onclick="navigateTo('pages/rent-equipment.html')">
@@ -153,6 +176,7 @@
                     <div class="category-content">
                         <h3>Farming Equipment</h3>
                         <p>Rent or buy farming equipment.</p>
+                        <button onclick="navigateTo('pages/rent-equipment.html')">Click Here</button>
                     </div>
                 </div>
                 <div class="category-card" onclick="navigateTo('pages/hire-labour-options.html')">
@@ -160,6 +184,7 @@
                     <div class="category-content">
                         <h3>Hire Labour</h3>
                         <p>Find skilled agricultural workers.</p>
+                        <button onclick="navigateTo('pages/hire-labour-options.html')">Click Here</button>
                     </div>
                 </div>
                 <div class="category-card" onclick="navigateTo('pages/seeds.html')">
@@ -167,6 +192,7 @@
                     <div class="category-content">
                         <h3>Seeds</h3>
                         <p>Explore a variety of high-quality seeds.</p>
+                        <button onclick="navigateTo('pages/seeds.html')">Click Here</button>
                     </div>
                 </div>
             </div>

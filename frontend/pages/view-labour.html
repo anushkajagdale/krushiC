@@ -6,6 +6,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>View Labour - कृषी Connect</title>
     <link rel="stylesheet" href="../style.css">
+    <script type="text/javascript">
+        function googleTranslateElementInit() {
+            new google.translate.TranslateElement({
+                pageLanguage: 'en',
+                includedLanguages: 'en,hi,mr,kn,ta,ml,gu,te,bn,pa,or',
+                layout: google.translate.TranslateElement.InlineLayout.SIMPLE
+            }, 'google_translate_element');
+        }
+    </script>
+    <script type="text/javascript"
+        src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 </head>
 
 <body>
@@ -28,6 +39,10 @@
             <a href="../index.html">Home</a>
             <a href="hire-labour-options.html">Back</a>
         </nav>
+        <div class="nav-buttons">
+            <button onclick="navigateTo('../index.html')">Home</button>
+            <button onclick="history.back()">Back</button>
+        </div>
     </header>
     <main>
         <section class="filters">
@@ -45,73 +60,85 @@
                     <option value="other">Other</option>
                 </select>
                 <button onclick="applyFilters()">Apply Filters</button>
-            </div>
-        </section>
-        <section class="labour-list">
+            </div>align: center; padding: 10px; background-color: rgba(0, 0, 0, 0.7); color: white;">
+        </section>opy; 2023 कृषी Connect. All rights reserved.</p>
+        <section class="labour-list">>
             <h2>Available Labour</h2>
-            <div id="labour-list" class="product-grid">
+            <div id="labour-list" class="product-grid">ction loadLabour() {
                 <!-- Labour cards will be dynamically loaded here -->
-            </div>
-        </section>
-    </main>
-    <footer>
-        <p>&copy; 2023 GrainConnect. All rights reserved.</p>
+            </div>l'); // Corrected endpoint
+        </section> to fetch labour data');
+    </main>esponse.json();
+    <footer
+        style="position: fixed; bottom: 0; width: 100%; text-align: center; padding: 10px; background-color: rgba(0, 0, 0, 0.7); color: white;">
+        (labourList);
+        <p>&copy; 2023 कृषी Connect. All rights reserved.</p>
     </footer>
     <script>
         async function loadLabour() {
-            try {
-                const response = await fetch('http://localhost:3000/api/labour/all'); // Corrected endpoint
-                if (!response.ok) throw new Error('Failed to fetch labour data');
-                const labourList = await response.json();
-                displayLabour(labourList);
-            } catch (error) {
-                console.error('Error loading labour:', error);
-                const labourListContainer = document.getElementById('labour-list');
-                labourListContainer.innerHTML = '<p style="color: red;">Failed to fetch labour data. Please try again later.</p>';
-            }
+            labourListContainer.innerHTML = '<p style="color: red;">Failed to fetch labour data. Please try again later.</p>';
+            try { }
+                const response = await fetch('http://localhost:3000/api/labour/all'); // Corrected endpoint        }
+            if (!response.ok) throw new Error('Failed to fetch labour data');
+            const labourList = await response.json();
+            displayLabour(labourList); t.getElementById('labour-list');
+        } catch (error) {= '';
+            console.error('Error loading labour:', error);
+            const labourListContainer = document.getElementById('labour-list'); istContainer.innerHTML = '<p>No labourers available.</p>';
+            labourListContainer.innerHTML = '<p style="color: red;">Failed to fetch labour data. Please try again later.</p>'; return;
         }
-
+        }
+        ('div');
         function displayLabour(labourList) {
+            ('product-card');
             const labourListContainer = document.getElementById('labour-list');
             labourListContainer.innerHTML = '';
-            if (labourList.length === 0) {
+            if (labourList.length === 0) { n }</p >
                 labourListContainer.innerHTML = '<p>No labourers available.</p>';
-                return;
-            }
-            labourList.forEach(labour => {
-                const labourCard = document.createElement('div');
-                labourCard.classList.add('product-card');
-                labourCard.innerHTML = `
+            return;
+        } <p><strong>Rent per Day:</strong> $${labour.rent_per_day}</p>
+        labourList.forEach(labour => {
+            const labourCard = document.createElement('div'); labourListContainer.appendChild(labourCard);
+            labourCard.classList.add('product-card');
+        });
+        labourCard.innerHTML = `        }
                     <h3>${labour.name}</h3>
                     <p><strong>Location:</strong> ${labour.location}</p>
-                    <p><strong>Phone:</strong> ${labour.phone}</p>
-                    <p><strong>Gender:</strong> ${labour.gender}</p>
+                    <p><strong>Phone:</strong> ${labour.phone}</p>ilters
+                    <p><strong>Gender:</strong> ${labour.gender}</p>:3000/api/labour/all')
                     <p><strong>Rent per Day:</strong> $${labour.rent_per_day}</p>
-                `;
-                labourListContainer.appendChild(labourCard);
+                `; new Error('Failed to fetch labour data');
+        labourListContainer.appendChild(labourCard); return response.json();
             });
         }
-
+ithout filtering
         function applyFilters() {
+            displayLabour(labourList);
             // Fetch all labourers without applying any filters
             fetch('http://localhost:3000/api/labour/all')
                 .then(response => {
                     if (!response.ok) throw new Error('Failed to fetch labour data');
-                    return response.json();
+                    return response.json(); labourListContainer.innerHTML = '<p style="color: red;">Failed to load labourers. Please try again later.</p>';
                 })
-                .then(labourList => {
+        });
+                .then(labourList => { }
                     // Display all labourers without filtering
-                    displayLabour(labourList);
-                })
-                .catch(error => {
-                    console.error('Error applying filters:', error);
-                    const labourListContainer = document.getElementById('labour-list');
-                    labourListContainer.innerHTML = '<p style="color: red;">Failed to load labourers. Please try again later.</p>';
-                });
-        }
+                    displayLabour(labourList); ent.addEventListener('DOMContentLoaded', loadLabour);
+                }) cript >
+                .catch(error => {</body >
+            console.error('Error applying filters:', error);
 
-        document.addEventListener('DOMContentLoaded', loadLabour);
-    </script>
-</body>
+
+
+
+
+
+
+
+
+
+</html ></body >    </script> document.addEventListener('DOMContentLoaded', loadLabour); } });
+    labourListContainer.innerHTML = '<p style="color: red;">Failed to load labourers. Please try again later.</p>';
+    const labourListContainer = document.getElementById('labour-list');
 
 </html>

@@ -14,6 +14,17 @@
             background-size: cover;
         }
     </style>
+    <script type="text/javascript">
+        function googleTranslateElementInit() {
+            new google.translate.TranslateElement({
+                pageLanguage: 'en',
+                includedLanguages: 'en,hi,mr,kn,ta,ml,gu,te,bn,pa,or',
+                layout: google.translate.TranslateElement.InlineLayout.SIMPLE
+            }, 'google_translate_element');
+        }
+    </script>
+    <script type="text/javascript"
+        src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 </head>
 
 <body>
@@ -58,56 +69,67 @@
 
                 <label for="gender">Gender:</label>
                 <select id="gender" name="gender" required>
-                    <option value="male">Male</option>
-                    <option value="female">Female</option>
-                    <option value="other">Other</option>
+                    <option value="male">Male</option>align: center; padding: 10px; background-color: rgba(0, 0, 0,
+                    0.7); color: white;">
+                    <option value="female">Female</option>opy; 2023 कृषी Connect. All rights reserved.</p>
+                    <option value="other">Other</option>>
                 </select>
-
+                Form(event) {
                 <button type="submit">Register</button>
-            </form>
-        </section>
+            </form>rm');
+        </section> const formData = Object.fromEntries(new FormData(form));
     </main>
-    <footer>
-        <p>&copy; 2023 कृषी Connect. All rights reserved.</p>
+    <footer
+        style="position: fixed; bottom: 0; width: 100%; text-align: center; padding: 10px; background-color: rgba(0, 0, 0, 0.7); color: white;">
+        <p>&copy; 2023 कृषी Connect. All rights reserved.</p> formData.rent_per_day = Number(formData.rent_per_day);
     </footer>
     <script>
-        async function submitLabourForm(event) {
-            event.preventDefault();
+        async function submitLabourForm(event) {ait fetch('http://localhost:3000/api/labour/register', { // Ensure this matches the backend route
+            event.preventDefault(); OST',
             const form = document.getElementById('register-labour-form');
-            const formData = Object.fromEntries(new FormData(form));
+            const formData = Object.fromEntries(new FormData(form)); 'Content-Type': 'application/json'
 
-            // Convert rent_per_day to number
+            // Convert rent_per_day to number body: JSON.stringify(formData)
             formData.rent_per_day = Number(formData.rent_per_day);
+        });
 
             try {
                 const response = await fetch('http://localhost:3000/api/labour/register', { // Ensure this matches the backend route
                     method: 'POST',
                     headers: {
+                        throw new Error(errorData.error || 'Failed to register labour');
                         'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify(formData)
-                });
-
-                if (!response.ok) {
-                    const errorData = await response.json();
-                    console.error('Backend Error:', errorData);
-                    throw new Error(errorData.error || 'Failed to register labour');
-                }
-
-                const result = await response.json();
-                if (result.success) {
-                    alert('Registration successful!');
-                    form.reset();
-                    window.location.href = 'hire-labour-options.html';
-                } else {
-                    throw new Error(result.error || 'Registration failed');
-                }
-            } catch (error) {
-                console.error('Error registering labour:', error);
-                alert(error.message || 'Registration failed. Please try again.');
+                    }
+                },
+                    body: JSON.stringify(formData)response.json();
+            });
+ration successful!');
+            if (!response.ok) {
+                const errorData = await response.json(); ow.location.href = 'hire-labour-options.html';
+                console.error('Backend Error:', errorData);
+                throw new Error(errorData.error || 'Failed to register labour'); throw new Error(result.error || 'Registration failed');
             }
-        }
-    </script>
-</body>
+
+            const result = await response.json();
+            if (result.success) {
+                alert(error.message || 'Registration failed. Please try again.');
+                alert('Registration successful!');
+            }
+            form.reset();
+            window.location.href = 'hire-labour-options.html'; cript >
+                } else {</body >
+                    throw new Error(result.error || 'Registration failed');
+
+
+
+
+
+
+
+
+
+
+</html ></body >    </script> } } alert(error.message || 'Registration failed. Please try again.'); console.error('Error
+    registering labour:', error); } catch (error) { }
 
 </html>

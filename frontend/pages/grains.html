@@ -6,111 +6,119 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Grains - कृषी Connect</title>
     <link rel="stylesheet" href="../style.css">
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Poppins', sans-serif;
+            background: url('../images/gb.jpg') no-repeat center center fixed;
+            background-size: cover;
+        }
+
+        .options-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+            margin-top: 50px;
+        }
+
+        .option-card {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        .option-card:hover {
+            transform: scale(1.05);
+        }
+
+        .option-card h3 {
+            margin: 0;
+        }
+
+        .logo-container img {
+            height: 40px;
+            /* Make the logo smaller */
+        }
+
+        .grains-description {
+            text-align: center;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: rgba(255, 255, 255, 0.8);
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .nav-buttons {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+        }
+
+        .nav-buttons button {
+            margin-left: 10px;
+            padding: 5px 10px;
+            font-size: 14px;
+            cursor: pointer;
+        }
+    </style>
+    <script type="text/javascript">
+        function googleTranslateElementInit() {
+            new google.translate.TranslateElement({
+                pageLanguage: 'en',
+                includedLanguages: 'en,hi,mr,kn,ta,ml,gu,te,bn,pa,or',
+                layout: google.translate.TranslateElement.InlineLayout.SIMPLE
+            }, 'google_translate_element');
+        }
+    </script>
+    <script type="text/javascript"
+        src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 </head>
 
 <body>
+    <div id="google_translate_element"></div>
     <header class="top-nav">
         <div class="logo-container">
             <img src="../images/logo.jpg" alt="कृषी Connect Logo" class="logo">
         </div>
-        <h1>Grains</h1>
-        <nav>
-            <a href="../index.html">Home</a>
-        </nav>
+        <div class="nav-buttons">
+            <button onclick="navigateTo('../index.html')">Home</button>
+            <button onclick="history.back()">Back</button>
+        </div>
     </header>
     <main>
-        <section class="grains-list">
-            <h2>Available Grains</h2>
-            <div id="grains-list" class="product-grid">
-                <!-- Grain cards will be dynamically loaded here -->
+        <section class="grains-description">
+            <h2>About Grains</h2>
+            <p>Grains are an essential part of agriculture, providing food and nutrition to millions. Explore our
+                platform to buy or sell high-quality grains like wheat, rice, and more.</p>
+        </section>align: center; padding: 10px; background-color: rgba(0, 0, 0, 0.7); color: white;">
+        <section class="options-container">opy; 2023 कृषी Connect. All rights reserved.</p>
+            <div class="option-card" onclick="navigateTo('buy-grains.html')">>
+                <h3>Buy Grains</h3>
             </div>
+            <div class="option-card" onclick="navigateTo('sell-grains.html')"> window.location.href = page;
+                <h3>Sell Grains</h3>
+            </div>cript>
         </section>
-        <section class="add-grain-form">
-            <h2>Add Grain</h2>
-            <form id="add-grain-form" onsubmit="submitGrainForm(event)">
-                <label for="name">Grain Name:</label>
-                <input type="text" id="name" name="name" placeholder="e.g., Wheat, Rice" required>
-
-                <label for="quantity">Quantity (in kg):</label>
-                <input type="number" id="quantity" name="quantity" placeholder="Enter quantity" required>
-
-                <label for="price">Price (per kg):</label>
-                <input type="number" id="price" name="price" placeholder="Enter price" required>
-
-                <label for="location">Location:</label>
-                <input type="text" id="location" name="location" placeholder="Enter location" required>
-
-                <label for="sellerName">Seller Name:</label>
-                <input type="text" id="sellerName" name="sellerName" placeholder="Enter your name" required>
-
-                <label for="sellerContact">Seller Contact:</label>
-                <input type="tel" id="sellerContact" name="sellerContact" placeholder="Enter your contact number"
-                    required>
-
-                <label for="image">Grain Image:</label>
-                <input type="file" id="image" name="image" accept="image/*" required>
-
-                <button type="submit">Add Grain</button>
-            </form>
-        </section>
-    </main>
-    <footer>
-        <p>&copy; 2023 कृषी Connect. All rights reserved.</p>
-    </footer>
-    <script>
-        async function loadGrains() {
-            try {
-                const response = await fetch('http://localhost:3000/api/grains');
-                if (!response.ok) throw new Error('Failed to fetch grains');
-                const grains = await response.json();
-                displayGrains(grains);
-            } catch (error) {
-                console.error('Error loading grains:', error);
-            }
-        }
-
-        function displayGrains(grains) {
-            const grainsList = document.getElementById('grains-list');
-            grainsList.innerHTML = '';
-            grains.forEach(grain => {
-                const grainCard = document.createElement('div');
-                grainCard.classList.add('product-card');
-                grainCard.innerHTML = `
-                    <img src="../uploads/${grain.image}" alt="${grain.name}">
-                    <h3>${grain.name}</h3>
-                    <p><strong>Quantity:</strong> ${grain.quantity} kg</p>
-                    <p><strong>Price:</strong> ₹${grain.price}/kg</p>
-                    <p><strong>Location:</strong> ${grain.location}</p>
-                    <p><strong>Seller:</strong> ${grain.sellerName}</p>
-                    <p><strong>Contact:</strong> ${grain.sellerContact}</p>
-                `;
-                grainsList.appendChild(grainCard);
-            });
-        }
-
-        async function submitGrainForm(event) {
-            event.preventDefault();
-            const form = document.getElementById('add-grain-form');
-            const formData = new FormData(form);
-
-            try {
-                const response = await fetch('http://localhost:3000/api/grains', {
-                    method: 'POST',
-                    body: formData,
-                });
-
-                if (!response.ok) throw new Error('Failed to add grain');
-                alert('Grain added successfully!');
-                form.reset();
-                loadGrains();
-            } catch (error) {
-                console.error('Error adding grain:', error);
-                alert('An error occurred while adding the grain. Please try again.');
-            }
-        }
-
-        document.addEventListener('DOMContentLoaded', loadGrains);
-    </script>
 </body>
+</main>
+
+
+
+
+
+
+
+
+
+
 
 </html>
+</body>
+</script> } window.location.href = page; function navigateTo(page) {
+<script>    </footer >        <p>&copy; 2023 कृषी Connect. All rights reserved.</p>    <footer style="position: fixed; bottom: 0; width: 100%; text-align: center; padding: 10px; background-color: rgba(0, 0, 0, 0.7); color: white;"></html>

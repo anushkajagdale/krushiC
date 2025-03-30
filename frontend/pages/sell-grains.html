@@ -196,13 +196,13 @@
             try {
                 const response = await fetch('http://localhost:3000/api/grains', {
                     method: 'POST',
-                    body: formData,
+                    body: formData, // Ensure FormData is sent correctly
                 });
 
                 if (!response.ok) {
                     const errorData = await response.json();
                     console.error('Error from backend:', errorData);
-                    throw new Error('Failed to submit grain details');
+                    throw new Error(errorData.error || 'Failed to submit grain details');
                 }
 
                 alert('Your grain details have been submitted successfully!');

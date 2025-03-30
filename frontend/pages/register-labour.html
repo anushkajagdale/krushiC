@@ -10,7 +10,8 @@
         body {
             margin: 0;
             font-family: 'Poppins', sans-serif;
-            background: url('../images/images.jpg') no-repeat center center fixed;
+            background: url('../images/labourrent.jpg') no-repeat center center fixed;
+            /* Set labourrent.jpg as background */
             background-size: cover;
         }
 
@@ -129,13 +130,13 @@
                 <h2>Provide Labour Details</h2>
                 <form id="register-labour-form" onsubmit="submitLabourForm(event)">
                     <label for="name">Name:</label>
-                    <input type="text" id="name" name="name" placeholder="Enter labourer's name" required>
+                    <input type="text" id="name" name="name" readonly required>
 
                     <label for="location">Location:</label>
                     <input type="text" id="location" name="location" placeholder="Enter location" required>
 
                     <label for="phone">Phone:</label>
-                    <input type="tel" id="phone" name="phone" placeholder="Enter phone number" required>
+                    <input type="tel" id="phone" name="phone" readonly required>
 
                     <label for="rent_per_day">Rent per Day (in INR):</label>
                     <input type="number" id="rent_per_day" name="rent_per_day" placeholder="Enter rent per day"
@@ -157,6 +158,18 @@
         <p>&copy; 2023 कृषी Connect. All rights reserved.</p>
     </footer>
     <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Simulate fetching user details from login
+            const userDetails = {
+                name: 'John Doe', // Replace with actual login data
+                phone: '9876543210' // Replace with actual login data
+            };
+
+            // Populate the name and phone fields
+            document.getElementById('name').value = userDetails.name;
+            document.getElementById('phone').value = userDetails.phone;
+        });
+
         async function submitLabourForm(event) {
             event.preventDefault();
             const form = document.getElementById('register-labour-form');
@@ -166,7 +179,7 @@
             formData.rent_per_day = Number(formData.rent_per_day);
 
             try {
-                const response = await fetch('http://localhost:3000/api/labour/register', { // Ensure this matches the backend route
+                const response = await fetch('http://localhost:3000/api/labour/register', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'

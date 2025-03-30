@@ -10,7 +10,7 @@
         body {
             margin: 0;
             font-family: 'Poppins', sans-serif;
-            background: url('../images/buyequipbg.jpg') no-repeat center center fixed;
+            background: url('../images/bgrenteg.jpg') no-repeat center center fixed;
             background-size: cover;
         }
 
@@ -91,11 +91,15 @@
         <div class="logo-container">
             <img src="../images/logo.jpg" alt="कृषी Connect Logo" class="logo">
         </div>
-        <h1>Rent Your Equipment</h1>
-        <nav>
-            <a href="../index.html">Home</a>
-            <a href="javascript:history.back()">Back</a>
-        </nav>
+        <div class="nav-buttons">
+            <button onclick="navigateTo('../index.html')"
+                style="background-color: #007bff; color: white; border: none; border-radius: 5px; padding: 5px 10px; cursor: pointer;">Home</button>
+            <button onclick="navigateTo('../pages/orders.html')"
+                style="background-color: #007bff; color: white; border: none; border-radius: 5px; padding: 5px 10px; cursor: pointer;">Your
+                Orders</button>
+            <button onclick="history.back()"
+                style="background-color: #007bff; color: white; border: none; border-radius: 5px; padding: 5px 10px; cursor: pointer;">Back</button>
+        </div>
     </header>
     <main>
         <section class="rent-equipment-section">
@@ -165,6 +169,10 @@
                 alert('Failed to submit equipment details. Please try again later.');
             }
         });
+
+        function navigateTo(url) {
+            window.location.href = url;
+        }
     </script>
 </body>
 

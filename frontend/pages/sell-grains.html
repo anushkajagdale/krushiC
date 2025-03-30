@@ -45,6 +45,8 @@
             padding: 20px;
             width: 90%;
             max-width: 500px;
+            margin-bottom: 20px;
+            /* Add margin to prevent overlap with the footer */
         }
 
         form {
@@ -124,23 +126,23 @@
                     <input list="grain-types" id="grain-type" name="grain-type" placeholder="e.g., Wheat, Rice"
                         required>
                     <datalist id="grain-types">
-                        <option value="Wheat"></option>
-                        <option value="Rice"></option>
-                        <option value="Barley"></option>
-                        <option value="Corn"></option>
-                        <option value="Oats"></option>
-                        <option value="Sorghum"></option>
-                        <option value="Millet"></option>
-                        <option value="Rye"></option>
-                        <option value="Quinoa"></option>
-                        <option value="Buckwheat"></option>
-                        <option value="Amaranth"></option>
-                        <option value="Teff"></option>
-                        <option value="Spelt"></option>
-                        <option value="Farro"></option>
-                        <option value="Kamut"></option>
-                        <option value="Fonio"></option>
-                        <option value="Triticale"></option>
+                        <option value="Wheat" data-translate="Wheat"></option>
+                        <option value="Rice" data-translate="Rice"></option>
+                        <option value="Barley" data-translate="Barley"></option>
+                        <option value="Corn" data-translate="Corn"></option>
+                        <option value="Oats" data-translate="Oats"></option>
+                        <option value="Sorghum" data-translate="Sorghum"></option>
+                        <option value="Millet" data-translate="Millet"></option>
+                        <option value="Rye" data-translate="Rye"></option>
+                        <option value="Quinoa" data-translate="Quinoa"></option>
+                        <option value="Buckwheat" data-translate="Buckwheat"></option>
+                        <option value="Amaranth" data-translate="Amaranth"></option>
+                        <option value="Teff" data-translate="Teff"></option>
+                        <option value="Spelt" data-translate="Spelt"></option>
+                        <option value="Farro" data-translate="Farro"></option>
+                        <option value="Kamut" data-translate="Kamut"></option>
+                        <option value="Fonio" data-translate="Fonio"></option>
+                        <option value="Triticale" data-translate="Triticale"></option>
                     </datalist>
 
                     <label for="quantity">Quantity (in kg):</label>
@@ -215,6 +217,24 @@
         function navigateTo(page) {
             window.location.href = page;
         }
+
+        function translateGrainTypes() {
+            const grainOptions = document.querySelectorAll('#grain-types option');
+            grainOptions.forEach(option => {
+                const originalText = option.getAttribute('data-translate');
+                if (originalText) {
+                    option.value = google.translate.TranslateElement.getTranslatedText(originalText);
+                }
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            // Trigger translation after Google Translate loads
+            const observer = new MutationObserver(() => {
+                translateGrainTypes();
+            });
+            observer.observe(document.getElementById('google_translate_element'), { childList: true, subtree: true });
+        });
     </script>
 </body>
 

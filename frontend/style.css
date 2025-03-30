@@ -1,6 +1,8 @@
 body {
     background: url('../images/images.jpg') no-repeat center center fixed;
     background-size: cover;
+    padding-bottom: 60px;
+    /* Add padding to prevent overlap with the footer */
 }
 
 .translucent-box {

@@ -89,6 +89,13 @@
             background-color: rgba(0, 0, 0, 0.7);
             color: white;
         }
+
+        .translucent-box {
+            background-color: rgba(255, 255, 255, 0.8);
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+        }
     </style>
 </head>
 
@@ -126,9 +133,11 @@
                 <button class="carousel-button next" onclick="nextSlide()">&#10095;</button>
             </div>
             <div class="hero-content">
-                <h2>Welcome to कृषी Connect</h2>
-                <p>Your one-stop platform for grains, cattle, and farming equipment.</p>
-                <button onclick="navigateTo('pages/marketplace.html')">Explore Marketplace</button>
+                <div class="translucent-box">
+                    <h2>Welcome to कृषी Connect</h2>
+                    <p>Your one-stop platform for grains, cattle, and farming equipment.</p>
+                    <button onclick="navigateTo('pages/marketplace.html')">Explore Marketplace</button>
+                </div>
             </div>
         </section>
         <section class="featured-section">

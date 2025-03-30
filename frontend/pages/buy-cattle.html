@@ -4,24 +4,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Buy Grains - कृषी Connect</title>
+    <title>Buy Cattle - कृषी Connect</title>
     <link rel="stylesheet" href="../style.css">
     <style>
         body {
             margin: 0;
             font-family: 'Poppins', sans-serif;
-            background: url('../images/gb.jpg') no-repeat center center fixed;
+            background: url('../images/sheepbg.jpg') no-repeat center center fixed;
             background-size: cover;
         }
 
-        .grain-grid {
+        .cattle-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 20px;
             padding: 20px;
         }
 
-        .grain-card {
+        .cattle-card {
             background-color: white;
             border-radius: 10px;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
@@ -29,29 +29,27 @@
             text-align: center;
         }
 
-        .grain-card img {
+        .cattle-card img {
             width: 100%;
             height: 150px;
             object-fit: cover;
             border-radius: 5px;
         }
 
-        .grain-card h3 {
+        .cattle-card h3 {
             margin: 10px 0;
         }
 
-        .grain-card p {
+        .cattle-card p {
             margin: 5px 0;
         }
 
         main {
             padding-bottom: 60px;
-            /* Add padding to prevent overlap with the footer */
         }
 
         .logo-container img {
             height: 60px;
-            /* Increased logo size */
         }
 
         .top-nav {
@@ -90,9 +88,9 @@
     </header>
     <main>
         <section>
-            <h2>Available Grains</h2>
-            <div class="grain-grid" id="grainGrid">
-                <!-- Grain cards will be dynamically loaded here -->
+            <h2>Available Cattle</h2>
+            <div class="cattle-grid" id="cattleGrid">
+                <!-- Cattle cards will be dynamically loaded here -->
             </div>
         </section>
     </main>
@@ -101,39 +99,40 @@
         <p>&copy; 2023 कृषी Connect. All rights reserved.</p>
     </footer>
     <script>
-        async function loadGrains() {
+        async function loadCattle() {
             try {
-                const response = await fetch('http://localhost:3000/api/grains'); // Fetch grain details from the backend
+                const response = await fetch('http://localhost:3000/api/cattle'); // Fetch cattle details from the backend
                 if (!response.ok) {
-                    throw new Error('Failed to fetch grain data');
+                    throw new Error('Failed to fetch cattle data');
                 }
 
-                const grains = await response.json();
-                const grid = document.getElementById('grainGrid');
+                const cattle = await response.json();
+                const grid = document.getElementById('cattleGrid');
                 grid.innerHTML = ''; // Clear the grid before populating
 
-                grains.forEach(grain => {
+                cattle.forEach(item => {
                     const card = document.createElement('div');
-                    card.className = 'grain-card';
+                    card.className = 'cattle-card';
                     card.innerHTML = `
-                        <img src="../uploads/${grain.image}" alt="${grain.name}">
-                        <h3>${grain.name}</h3>
-                        <p><strong>Quantity:</strong> ${grain.quantity} kg</p>
-                        <p><strong>Price:</strong> ₹${grain.price} per kg</p>
-                        <p><strong>Location:</strong> ${grain.location}</p>
-                        <p><strong>Seller:</strong> ${grain.sellerName}</p>
-                        <p><strong>Contact:</strong> ${grain.sellerContact}</p>
+                        <img src="../uploads/${item.image}" alt="${item.cattleType}">
+                        <h3>${item.cattleType}</h3>
+                        <p><strong>Breed:</strong> ${item.breed}</p>
+                        <p><strong>Age:</strong> ${item.age} years</p>
+                        <p><strong>Price:</strong> ₹${item.price}</p>
+                        <p><strong>Location:</strong> ${item.address}</p>
+                        <p><strong>Seller:</strong> ${item.name}</p>
+                        <p><strong>Contact:</strong> ${item.contact}</p>
                     `;
                     grid.appendChild(card);
                 });
             } catch (error) {
-                console.error('Error loading grains:', error);
-                document.getElementById('grainGrid').innerHTML =
-                    '<p style="color: red;">Failed to load grains. Please try again later.</p>';
+                console.error('Error loading cattle:', error);
+                document.getElementById('cattleGrid').innerHTML =
+                    '<p style="color: red;">Failed to load cattle. Please try again later.</p>';
             }
         }
 
-        document.addEventListener('DOMContentLoaded', loadGrains); // Load grains when the page is loaded
+        document.addEventListener('DOMContentLoaded', loadCattle); // Load cattle when the page is loaded
 
         function navigateTo(page) {
             window.location.href = page;

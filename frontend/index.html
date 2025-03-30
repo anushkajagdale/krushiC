@@ -24,8 +24,8 @@
         }
 
         .logo-container img {
-            height: 40px;
-            /* Make the logo smaller */
+            height: 60px;
+            /* Increased logo size */
         }
 
         .search-bar {
@@ -137,6 +137,10 @@
     <header class="top-nav">
         <div class="logo-container">
             <img src="images/logo.jpg" alt="कृषी Connect Logo">
+        </div>
+        <div class="nav-buttons">
+            <button onclick="navigateTo('index.html')">Home</button>
+            <button onclick="history.back()">Back</button>
         </div>
         <form class="search-bar" onsubmit="search(event)">
             <input type="text" id="search-input" placeholder="Search for grains, cattle, or equipment...">

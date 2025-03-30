@@ -6,18 +6,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>View Labour - कृषी Connect</title>
     <link rel="stylesheet" href="../style.css">
-    <script type="text/javascript">
-        function googleTranslateElementInit() {
-            new google.translate.TranslateElement({
-                pageLanguage: 'en',
-                includedLanguages: 'en,hi,mr,kn,ta,ml,gu,te,bn,pa,or',
-                layout: google.translate.TranslateElement.InlineLayout.SIMPLE
-            }, 'google_translate_element');
-        }
-    </script>
-    <script type="text/javascript"
-        src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
     <style>
+        body {
+            margin: 0;
+            font-family: 'Poppins', sans-serif;
+            background: url('../images/rentlaboursbg.jpg') no-repeat center center fixed;
+            /* Set rentlaboursbg.jpg as background */
+            background-size: cover;
+        }
+
         .logo-container img {
             height: 60px;
             /* Increased logo size */
@@ -28,20 +25,63 @@
             top: 10px;
             right: 10px;
         }
+
+        .labour-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            padding: 20px;
+        }
+
+        .labour-card {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 15px;
+            text-align: center;
+        }
+
+        .labour-card h3 {
+            margin: 10px 0;
+        }
+
+        .labour-card p {
+            margin: 5px 0;
+        }
+
+        .filters {
+            text-align: center;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: rgba(255, 255, 255, 0.8);
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .filters input,
+        .filters select,
+        .filters button {
+            margin: 10px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        .filters button {
+            background-color: #007bff;
+            color: white;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .filters button:hover {
+            background-color: #0056b3;
+        }
     </style>
 </head>
 
 <body>
-    <div id="google_translate_element"></div>
-    <script type="text/javascript">
-        function googleTranslateElementInit() {
-            new google.translate.TranslateElement({
-                pageLanguage: 'en',
-                layout: google.translate.TranslateElement.InlineLayout.SIMPLE
-            }, 'google_translate_element');
-        }
-    </script>
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/kogg/translate/translate.js"></script>
     <header class="top-nav">
         <div class="logo-container">
             <img src="../images/logo.jpg" alt="कृषी Connect Logo">
@@ -71,7 +111,7 @@
         </section>
         <section class="labour-list">
             <h2>Available Labour</h2>
-            <div id="labour-list" class="product-grid">
+            <div id="labour-list" class="labour-grid">
                 <!-- Labour cards will be dynamically loaded here -->
             </div>
         </section>
@@ -83,54 +123,63 @@
     <script>
         async function loadLabour() {
             try {
-                const response = await fetch('http://localhost:3000/api/labour/all'); // Corrected endpoint
+                const response = await fetch('http://localhost:3000/api/labour/all');
                 if (!response.ok) throw new Error('Failed to fetch labour data');
-                const labourList = await response.json();
-                displayLabour(labourList);
+
+                const labourers = await response.json();
+                displayLabour(labourers);
             } catch (error) {
                 console.error('Error loading labour:', error);
-                const labourListContainer = document.getElementById('labour-list');
-                labourListContainer.innerHTML = '<p style="color: red;">Failed to fetch labour data. Please try again later.</p>';
+                document.getElementById('labour-list').innerHTML =
+                    '<p style="color: red;">Failed to fetch labour data. Please try again later.</p>';
             }
         }
 
-        function displayLabour(labourList) {
+        function displayLabour(labourers) {
             const labourListContainer = document.getElementById('labour-list');
             labourListContainer.innerHTML = '';
-            if (labourList.length === 0) {
+            if (labourers.length === 0) {
                 labourListContainer.innerHTML = '<p>No labourers available.</p>';
                 return;
             }
-            labourList.forEach(labour => {
+
+            labourers.forEach(labour => {
                 const labourCard = document.createElement('div');
-                labourCard.classList.add('product-card');
+                labourCard.classList.add('labour-card');
                 labourCard.innerHTML = `
                     <h3>${labour.name}</h3>
                     <p><strong>Location:</strong> ${labour.location}</p>
                     <p><strong>Phone:</strong> ${labour.phone}</p>
                     <p><strong>Gender:</strong> ${labour.gender}</p>
-                    <p><strong>Rent per Day:</strong> $${labour.rent_per_day}</p>
+                    <p><strong>Rent per Day:</strong> ₹${labour.rent_per_day}</p>
                 `;
                 labourListContainer.appendChild(labourCard);
             });
         }
 
         function applyFilters() {
-            // Fetch all labourers without applying any filters
-            fetch('http://localhost:3000/api/labour/all')
-                .then(response => {
-                    if (!response.ok) throw new Error('Failed to fetch labour data');
-                    return response.json();
-                })
-                .then(labourList => {
-                    // Display all labourers without filtering
-                    displayLabour(labourList);
-                })
-                .catch(error => {
-                    console.error('Error applying filters:', error);
-                    const labourListContainer = document.getElementById('labour-list');
-                    labourListContainer.innerHTML = '<p style="color: red;">Failed to load labourers. Please try again later.</p>';
+            const maxPrice = document.getElementById('price-filter').value;
+            const location = document.getElementById('location-filter').value.toLowerCase();
+            const gender = document.getElementById('gender-filter').value;
+
+            loadLabour().then(() => {
+                const labourCards = document.querySelectorAll('.labour-card');
+                labourCards.forEach(card => {
+                    const price = parseInt(card.querySelector('p:nth-child(5)').textContent.replace('₹', ''));
+                    const cardLocation = card.querySelector('p:nth-child(2)').textContent.toLowerCase();
+                    const cardGender = card.querySelector('p:nth-child(4)').textContent.toLowerCase();
+
+                    if (
+                        (maxPrice && price > maxPrice) ||
+                        (location && !cardLocation.includes(location)) ||
+                        (gender !== 'any' && cardGender !== gender)
+                    ) {
+                        card.style.display = 'none';
+                    } else {
+                        card.style.display = 'block';
+                    }
                 });
+            });
         }
 
         document.addEventListener('DOMContentLoaded', loadLabour);

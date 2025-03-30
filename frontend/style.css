@@ -58,6 +58,8 @@ footer {
 .nav-buttons {
     display: flex;
     gap: 10px;
+    align-items: center;
+    /* Ensure equal alignment */
 }
 
 .nav-buttons button {

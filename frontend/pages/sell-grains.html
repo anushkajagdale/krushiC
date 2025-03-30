@@ -114,6 +114,12 @@
             <div class="form-container">
                 <h2>Enter Grain Details</h2>
                 <form id="sell-grains-form">
+                    <label for="name">Name:</label>
+                    <input type="text" id="name" name="name" placeholder="Your name" readonly>
+
+                    <label for="contact">Contact Number:</label>
+                    <input type="tel" id="contact" name="contact" placeholder="Your contact number" readonly>
+
                     <label for="grain-type">Grain Type:</label>
                     <input list="grain-types" id="grain-type" name="grain-type" placeholder="e.g., Wheat, Rice"
                         required>
@@ -146,9 +152,6 @@
                     <label for="location">Location:</label>
                     <input type="text" id="location" name="location" placeholder="Enter your location" required>
 
-                    <label for="contact">Contact Number:</label>
-                    <input type="tel" id="contact" name="contact" placeholder="Enter your contact number" required>
-
                     <label for="grain-image">Upload Grain Image:</label>
                     <input type="file" id="grain-image" name="grain-image" accept="image/*" required>
 
@@ -162,17 +165,29 @@
         <p>&copy; 2023 कृषी Connect. All rights reserved.</p>
     </footer>
     <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Simulate fetching user details from login
+            const userDetails = {
+                name: 'John Doe', // Replace with actual login data
+                contact: '9876543210' // Replace with actual login data
+            };
+
+            // Populate the name and contact fields
+            document.getElementById('name').value = userDetails.name;
+            document.getElementById('contact').value = userDetails.contact;
+        });
+
         document.getElementById('sell-grains-form').addEventListener('submit', async function (event) {
             event.preventDefault();
             const formData = new FormData(event.target);
             const grainDetails = {
-                name: formData.get('grain-type'),
-                image: formData.get('grain-image') ? formData.get('grain-image').name : '',
+                name: formData.get('name'),
+                contact: formData.get('contact'),
+                grainType: formData.get('grain-type'),
                 quantity: parseInt(formData.get('quantity'), 10),
                 price: parseFloat(formData.get('price')),
                 location: formData.get('location'),
-                sellerName: 'Seller Name', // Replace with actual seller name if available
-                sellerContact: formData.get('contact'),
+                image: formData.get('grain-image') ? formData.get('grain-image').name : ''
             };
 
             try {

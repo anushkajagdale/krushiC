@@ -18,7 +18,7 @@ const upload = multer({ storage });
 // POST route to add grain details
 router.post('/', upload.single('image'), async (req, res) => {
     try {
-        const { name, grainType, quantity, price, location, sellerName, sellerContact } = req.body;
+        const { grainType, quantity, price, location, sellerName, sellerContact } = req.body;
         const image = req.file ? req.file.filename : null;
 
         const newGrain = new Grain({
@@ -42,7 +42,7 @@ router.post('/', upload.single('image'), async (req, res) => {
 // GET route to fetch all grains
 router.get('/', async (req, res) => {
     try {
-        const grains = await Grain.find();
+        const grains = await Grain.find(); // Fetch all grain details from the database
         res.status(200).json(grains);
     } catch (error) {
         console.error('Error fetching grains:', error);

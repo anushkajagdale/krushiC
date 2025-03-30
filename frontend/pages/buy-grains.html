@@ -76,14 +76,14 @@
     <script>
         async function loadGrains() {
             try {
-                const response = await fetch('http://localhost:3000/api/grains');
+                const response = await fetch('http://localhost:3000/api/grains'); // Fetch grain details from the backend
                 if (!response.ok) {
                     throw new Error('Failed to fetch grain data');
                 }
 
                 const grains = await response.json();
                 const grid = document.getElementById('grainGrid');
-                grid.innerHTML = '';
+                grid.innerHTML = ''; // Clear the grid before populating
 
                 grains.forEach(grain => {
                     const card = document.createElement('div');
@@ -106,7 +106,7 @@
             }
         }
 
-        document.addEventListener('DOMContentLoaded', loadGrains);
+        document.addEventListener('DOMContentLoaded', loadGrains); // Load grains when the page is loaded
 
         function navigateTo(page) {
             window.location.href = page;

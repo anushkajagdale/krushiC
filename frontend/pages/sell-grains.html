@@ -117,10 +117,12 @@
                 <h2>Enter Grain Details</h2>
                 <form id="sell-grains-form">
                     <label for="name">Name:</label>
-                    <input type="text" id="name" name="name" placeholder="Your name" readonly>
+                    <input type="text" id="name" name="name" placeholder="Your name" readonly pattern="[A-Za-z\s]+"
+                        title="Name should only contain letters and spaces" required>
 
                     <label for="contact">Contact Number:</label>
-                    <input type="tel" id="contact" name="contact" placeholder="Your contact number" readonly>
+                    <input type="tel" id="contact" name="contact" placeholder="Your contact number" readonly
+                        pattern="\d{10}" title="Contact number must be exactly 10 digits" required>
 
                     <label for="grain-type">Grain Type:</label>
                     <input list="grain-types" id="grain-type" name="grain-type" placeholder="e.g., Wheat, Rice"
@@ -146,10 +148,10 @@
                     </datalist>
 
                     <label for="quantity">Quantity (in kg):</label>
-                    <input type="number" id="quantity" name="quantity" placeholder="Enter quantity" required>
+                    <input type="number" id="quantity" name="quantity" placeholder="Enter quantity" min="1" required>
 
                     <label for="price">Price (per kg):</label>
-                    <input type="number" id="price" name="price" placeholder="Enter price" required>
+                    <input type="number" id="price" name="price" placeholder="Enter price" min="1" required>
 
                     <label for="location">Location:</label>
                     <input type="text" id="location" name="location" placeholder="Enter your location" required>
@@ -181,24 +183,20 @@
 
         document.getElementById('sell-grains-form').addEventListener('submit', async function (event) {
             event.preventDefault();
-            const formData = new FormData(event.target);
-            const grainDetails = {
-                name: formData.get('name'),
-                contact: formData.get('contact'),
-                grainType: formData.get('grain-type'),
-                quantity: parseInt(formData.get('quantity'), 10),
-                price: parseFloat(formData.get('price')),
-                location: formData.get('location'),
-                image: formData.get('grain-image') ? formData.get('grain-image').name : ''
-            };
+            const form = event.target;
+
+            // Validate form fields
+            if (!form.checkValidity()) {
+                alert('Please fill out all fields correctly.');
+                return;
+            }
+
+            const formData = new FormData(form);
 
             try {
-                const response = await fetch('http://localhost:3000/api/products', {
+                const response = await fetch('http://localhost:3000/api/grains', {
                     method: 'POST',
-                    body: JSON.stringify(grainDetails),
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
+                    body: formData,
                 });
 
                 if (!response.ok) {
@@ -208,6 +206,7 @@
                 }
 
                 alert('Your grain details have been submitted successfully!');
+                form.reset();
             } catch (error) {
                 console.error('Error submitting grain details:', error);
                 alert('Failed to submit grain details. Please try again later.');

@@ -7,6 +7,7 @@ const cattleRoutes = require('./routes/cattle');
 const grainRoutes = require('./routes/grains');
 const labourRoutes = require('./routes/labour');
 const equipmentRoutes = require('./routes/equipment'); // Ensure this file is not empty
+const authRoutes = require('./routes/auth');
 
 const app = express();
 const port = 3000;
@@ -35,6 +36,7 @@ app.use('/api/cattle', cattleRoutes);
 app.use('/api/grains', grainRoutes);
 app.use('/api/labour', labourRoutes);
 app.use('/api/equipment', equipmentRoutes); // Ensure this route is valid
+app.use('/api/auth', authRoutes);
 
 // Test endpoint
 app.get('/', (req, res) => {

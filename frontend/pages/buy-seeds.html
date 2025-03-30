@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buy Seeds - कृषी Connect</title>
+    <link rel="stylesheet" href="../style.css">
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Poppins', sans-serif;
+            background: url('../images/seedsbg.jpg') no-repeat center center fixed;
+            background-size: cover;
+        }
+
+        .seed-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            padding: 20px;
+        }
+
+        .seed-card {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 15px;
+            text-align: center;
+        }
+
+        .seed-card img {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+            border-radius: 5px;
+        }
+
+        .seed-card h3 {
+            margin: 10px 0;
+        }
+
+        .seed-card p {
+            margin: 5px 0;
+        }
+
+        main {
+            padding-bottom: 60px;
+        }
+
+        .logo-container img {
+            height: 80px;
+            width: 80px;
+            border-radius: 50%;
+            border: 2px solid white;
+            object-fit: contain;
+            background-color: white;
+        }
+
+        .top-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+            background-color: rgba(0, 0, 0, 0.7);
+            color: white;
+        }
+
+        .nav-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .nav-buttons button {
+            padding: 5px 10px;
+            background-color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .nav-buttons button:hover {
+            background-color: #ddd;
+        }
+
+        .filter-options {
+            margin-bottom: 20px;
+        }
+
+        .filter-options label {
+            margin-right: 10px;
+        }
+
+        .filter-options input {
+            padding: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .filter-options button {
+            padding: 5px 10px;
+            background-color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .filter-options button:hover {
+            background-color: #ddd;
+        }
+    </style>
+</head>
+
+<body>
+    <header class="top-nav">
+        <div class="logo-container">
+            <img src="../images/logo.jpg" alt="कृषी Connect Logo">
+        </div>
+        <div class="nav-buttons">
+            <button onclick="navigateTo('../index.html')">Home</button>
+            <button onclick="history.back()">Back</button>
+        </div>
+    </header>
+    <main>
+        <section>
+            <h2>Available Seeds</h2>
+            <div class="filter-options">
+                <label for="seed-type-filter">Seed Type:</label>
+                <input list="seed-types" id="seed-type-filter" placeholder="Select or type seed type">
+                <datalist id="seed-types">
+                    <option value="Wheat"></option>
+                    <option value="Rice"></option>
+                    <option value="Barley"></option>
+                    <option value="Corn"></option>
+                    <option value="Oats"></option>
+                    <option value="Sorghum"></option>
+                    <option value="Millet"></option>
+                    <option value="Rye"></option>
+                    <option value="Quinoa"></option>
+                    <option value="Buckwheat"></option>
+                    <option value="Amaranth"></option>
+                    <option value="Teff"></option>
+                    <option value="Spelt"></option>
+                    <option value="Farro"></option>
+                    <option value="Kamut"></option>
+                    <option value="Fonio"></option>
+                    <option value="Triticale"></option>
+                </datalist>
+                <button onclick="applySeedFilter()">Apply Filter</button>
+            </div>
+            <div class="seed-grid" id="seedGrid">
+                <!-- Seed cards will be dynamically loaded here -->
+            </div>
+        </section>
+    </main>
+    <footer
+        style="position: fixed; bottom: 0; width: 100%; text-align: center; padding: 10px; background-color: rgba(0, 0, 0, 0.7); color: white;">
+        <p>&copy; 2023 कृषी Connect. All rights reserved.</p>
+    </footer>
+    <script>
+        async function loadSeeds() {
+            try {
+                const response = await fetch('http://localhost:3000/api/seeds'); // Fetch seed details from the backend
+                if (!response.ok) {
+                    throw new Error('Failed to fetch seed data');
+                }
+
+                const seeds = await response.json();
+                const grid = document.getElementById('seedGrid');
+                grid.innerHTML = ''; // Clear the grid before populating
+
+                seeds.forEach(seed => {
+                    const card = document.createElement('div');
+                    card.className = 'seed-card';
+                    card.innerHTML = `
+                        <img src="../uploads/${seed.image}" alt="${seed.seedType}">
+                        <h3>${seed.seedType}</h3>
+                        <p><strong>Location:</strong> ${seed.location}</p>
+                        <p><strong>Seller:</strong> ${seed.name}</p>
+                        <p><strong>Contact:</strong> ${seed.contact}</p>
+                    `;
+                    grid.appendChild(card);
+                });
+            } catch (error) {
+                console.error('Error loading seeds:', error);
+                document.getElementById('seedGrid').innerHTML =
+                    '<p style="color: red;">Failed to load seeds. Please try again later.</p>';
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', loadSeeds); // Load seeds when the page is loaded
+
+        function navigateTo(page) {
+            window.location.href = page;
+        }
+
+        function applySeedFilter() {
+            const seedType = document.getElementById('seed-type-filter').value.toLowerCase();
+            const seedCards = document.querySelectorAll('.seed-card');
+
+            seedCards.forEach(card => {
+                const cardSeedType = card.querySelector('h3').textContent.toLowerCase();
+                if (seedType && !cardSeedType.includes(seedType)) {
+                    card.style.display = 'none';
+                } else {
+                    card.style.display = 'block';
+                }
+            });
+        }
+    </script>
+</body>
+
+</html>

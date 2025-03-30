@@ -95,7 +95,26 @@
                     <input type="text" id="location" name="location" placeholder="Enter your location" required>
 
                     <label for="seed-type">Seed Type:</label>
-                    <input type="text" id="seed-type" name="seedType" placeholder="e.g., Wheat, Rice" required>
+                    <input list="seed-types" id="seed-type" name="seedType" placeholder="e.g., Wheat, Rice" required>
+                    <datalist id="seed-types">
+                        <option value="Wheat"></option>
+                        <option value="Rice"></option>
+                        <option value="Barley"></option>
+                        <option value="Corn"></option>
+                        <option value="Oats"></option>
+                        <option value="Sorghum"></option>
+                        <option value="Millet"></option>
+                        <option value="Rye"></option>
+                        <option value="Quinoa"></option>
+                        <option value="Buckwheat"></option>
+                        <option value="Amaranth"></option>
+                        <option value="Teff"></option>
+                        <option value="Spelt"></option>
+                        <option value="Farro"></option>
+                        <option value="Kamut"></option>
+                        <option value="Fonio"></option>
+                        <option value="Triticale"></option>
+                    </datalist>
 
                     <label for="seed-image">Upload Seed Image:</label>
                     <input type="file" id="seed-image" name="seedImage" accept="image/*" required>

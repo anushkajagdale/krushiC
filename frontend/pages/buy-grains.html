@@ -50,8 +50,18 @@
         }
 
         .logo-container img {
-            height: 60px;
-            /* Increased logo size */
+            height: 80px;
+            /* Updated size to match home page */
+            width: 80px;
+            /* Ensure circular shape */
+            border-radius: 50%;
+            /* Make it circular */
+            border: 2px solid white;
+            /* Optional border for better visibility */
+            object-fit: contain;
+            /* Ensure the entire logo is visible */
+            background-color: white;
+            /* Fill remaining space in the circle with white */
         }
 
         .top-nav {
@@ -70,14 +80,15 @@
 
         .nav-buttons button {
             padding: 5px 10px;
-            background-color: white;
+            background-color: #007bff;
+            color: white;
             border: none;
             border-radius: 5px;
             cursor: pointer;
         }
 
         .nav-buttons button:hover {
-            background-color: #ddd;
+            background-color: #0056b3;
         }
     </style>
 </head>
@@ -88,8 +99,13 @@
             <img src="../images/logo.jpg" alt="कृषी Connect Logo">
         </div>
         <div class="nav-buttons">
-            <button onclick="navigateTo('../index.html')">Home</button>
-            <button onclick="history.back()">Back</button>
+            <button onclick="navigateTo('../index.html')"
+                style="background-color: #007bff; color: white; border: none; border-radius: 5px; padding: 5px 10px; cursor: pointer;">Home</button>
+            <button onclick="navigateTo('../pages/orders.html')"
+                style="background-color: #007bff; color: white; border: none; border-radius: 5px; padding: 5px 10px; cursor: pointer;">Your
+                Orders</button>
+            <button onclick="history.back()"
+                style="background-color: #007bff; color: white; border: none; border-radius: 5px; padding: 5px 10px; cursor: pointer;">Back</button>
         </div>
     </header>
     <main>

@@ -4,13 +4,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Buy on Rent - कृषी Connect</title>
+    <title>Equipment for Rent - कृषी Connect</title>
     <link rel="stylesheet" href="../style.css">
     <style>
         body {
             margin: 0;
             font-family: 'Poppins', sans-serif;
             background: url('../images/harvestor.jpg') no-repeat center center fixed;
+            /* Set harvestor.jpg as background */
             background-size: cover;
         }
 
@@ -99,7 +100,7 @@
     </header>
     <main>
         <section>
-            <h2>Available Equipment for Rent</h2>
+            <h2>Equipment for Rent</h2>
             <div class="equipment-grid" id="equipmentGrid">
                 <!-- Equipment cards will be dynamically loaded here -->
             </div>
@@ -137,7 +138,7 @@
             } catch (error) {
                 console.error('Error loading equipment:', error);
                 document.getElementById('equipmentGrid').innerHTML =
-                    '<p style="color: red;">Failed to load equipment. Please try again later.</p>';
+                    '<p style="color: red;">Failed to fetch equipment data. Please try again later.</p>';
             }
         }
 

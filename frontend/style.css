@@ -12,4 +12,8 @@ body {
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     display: inline-block;
     margin: 20px auto;
+    width: 80%;
+    /* Increased width */
+    max-width: 800px;
+    /* Set a maximum width */
 }

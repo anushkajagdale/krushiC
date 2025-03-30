@@ -1,77 +1,210 @@
+/* General body styling */
 body {
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
     background: url('../images/images.jpg') no-repeat center center fixed;
     background-size: cover;
     padding-bottom: 60px;
-    /* Add padding to prevent overlap with the footer */
+    /* Prevent overlap with the footer */
+    color: #333;
+    /* Default text color */
 }
 
+/* Translucent box for sections */
 .translucent-box {
-    background-color: rgba(255, 255, 255, 0.8);
-    /* White with 80% opacity */
+    background-color: rgba(255, 255, 255, 0.9);
+    /* Slightly opaque white */
     padding: 20px;
     border-radius: 10px;
     text-align: center;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    display: inline-block;
     margin: 20px auto;
     width: 80%;
-    /* Increased width */
     max-width: 800px;
-    /* Set a maximum width */
 }
 
+/* Header styling */
 header.top-nav {
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 10px 20px;
-    background-color: rgba(0, 0, 0, 0.7);
+    background-color: rgba(0, 0, 0, 0.8);
+    /* Darker background for better contrast */
     color: white;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
 }
 
+/* Logo styling */
 .logo-container img {
     height: 80px;
-    /* Set consistent logo size */
     width: 80px;
-    /* Ensure circular shape */
     border-radius: 50%;
-    /* Make it circular */
     border: 2px solid white;
-    /* Optional border for better visibility */
     object-fit: contain;
-    /* Ensure the entire logo is visible */
     background-color: white;
-    /* Fill remaining space in the circle with white */
 }
 
-footer {
-    position: fixed;
-    bottom: 0;
-    width: 100%;
-    text-align: center;
-    padding: 10px;
-    background-color: rgba(0, 0, 0, 0.7);
-    color: white;
-    font-size: 14px;
-}
-
+/* Navigation buttons */
 .nav-buttons {
     display: flex;
     gap: 10px;
-    align-items: center;
-    /* Ensure equal alignment */
 }
 
 .nav-buttons button {
-    padding: 5px 10px;
+    padding: 10px 15px;
     background-color: #007bff;
     color: white;
     border: none;
     border-radius: 5px;
     cursor: pointer;
     font-size: 14px;
+    transition: background-color 0.3s ease;
 }
 
 .nav-buttons button:hover {
+    background-color: #0056b3;
+}
+
+/* Footer styling */
+footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    text-align: center;
+    padding: 10px;
+    background-color: rgba(0, 0, 0, 0.8);
+    color: white;
+    font-size: 14px;
+}
+
+/* Grid layout for options and cards */
+.options-container,
+.category-grid,
+.seed-grid,
+.cattle-grid,
+.labour-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    padding: 20px;
+}
+
+/* Card styling */
+.option-card,
+.category-card,
+.seed-card,
+.cattle-card,
+.labour-card {
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    text-align: center;
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.option-card:hover,
+.category-card:hover,
+.seed-card:hover,
+.cattle-card:hover,
+.labour-card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Image styling for cards */
+.option-card img,
+.category-card img,
+.seed-card img,
+.cattle-card img {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 5px;
+}
+
+/* Form styling */
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+form label {
+    font-weight: bold;
+    color: #333;
+}
+
+form input,
+form select,
+form button {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+form input:focus,
+form select:focus {
+    border-color: #007bff;
+    outline: none;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+form button {
+    background-color: #007bff;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+form button:hover {
+    background-color: #0056b3;
+}
+
+/* Section descriptions */
+.grains-description,
+.cattle-description,
+.labour-description,
+.equipment-description,
+.seeds-description {
+    text-align: center;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: rgba(255, 255, 255, 0.9);
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Filter options */
+.filter-options {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.filter-options input,
+.filter-options select,
+.filter-options button {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+.filter-options button {
+    background-color: #007bff;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.filter-options button:hover {
     background-color: #0056b3;
 }

@@ -18,11 +18,18 @@ const upload = multer({ storage });
 // POST route to add grain details
 router.post('/', upload.single('image'), async (req, res) => {
     try {
+        console.log('Incoming Request Body:', req.body);
+        console.log('Uploaded File:', req.file);
+
         const { grainType, quantity, price, location, sellerName, sellerContact } = req.body;
         const image = req.file ? req.file.filename : null;
 
+        if (!grainType || !quantity || !price || !location || !sellerName || !sellerContact || !image) {
+            return res.status(400).json({ error: 'All fields are required' });
+        }
+
         const newGrain = new Grain({
-            name: grainType, // Use grainType as the name
+            name: grainType,
             image,
             quantity,
             price,

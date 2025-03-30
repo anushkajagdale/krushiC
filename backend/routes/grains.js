@@ -18,11 +18,11 @@ const upload = multer({ storage });
 // POST route to add grain details
 router.post('/', upload.single('image'), async (req, res) => {
     try {
-        const { name, quantity, price, location, sellerName, sellerContact } = req.body;
+        const { name, grainType, quantity, price, location, sellerName, sellerContact } = req.body;
         const image = req.file ? req.file.filename : null;
 
         const newGrain = new Grain({
-            name,
+            name: grainType, // Use grainType as the name
             image,
             quantity,
             price,

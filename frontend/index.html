@@ -24,8 +24,18 @@
         }
 
         .logo-container img {
-            height: 60px;
-            /* Increased logo size */
+            height: 80px;
+            /* Updated size to match labour page */
+            width: 80px;
+            /* Ensure circular shape */
+            border-radius: 50%;
+            /* Make it circular */
+            border: 2px solid white;
+            /* Optional border for better visibility */
+            object-fit: contain;
+            /* Ensure the entire logo is visible */
+            background-color: white;
+            /* Fill remaining space in the circle with white */
         }
 
         .search-bar {
@@ -118,6 +128,18 @@
             border-radius: 10px;
             text-align: center;
         }
+
+        .translucent-box.full-width {
+            width: 100%;
+            /* Make the box span the entire page width */
+            max-width: none;
+            /* Remove the maximum width constraint */
+            text-align: center;
+            padding: 40px;
+            /* Add extra padding for better appearance */
+            box-sizing: border-box;
+            /* Ensure padding doesn't affect width */
+        }
     </style>
     <script type="text/javascript">
         function googleTranslateElementInit() {
@@ -149,7 +171,7 @@
     <main>
         <section class="hero">
             <div class="hero-content">
-                <div class="translucent-box">
+                <div class="translucent-box full-width">
                     <h2>Welcome to कृषी Connect</h2>
                     <p>Your one-stop platform for grains, cattle, and farming equipment.</p>
                     <button onclick="navigateTo('pages/marketplace.html')">Explore Marketplace</button>

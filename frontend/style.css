@@ -39,7 +39,7 @@ header.top-nav {
     border: 2px solid white;
     /* Optional border for better visibility */
     object-fit: contain;
-    /* Ensure the entire logo is displayed */
+    /* Ensure the entire logo is visible */
     background-color: white;
     /* Fill remaining space in the circle with white */
 }

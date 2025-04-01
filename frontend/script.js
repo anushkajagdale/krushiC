@@ -82,6 +82,34 @@ async function loadLabourList() {
     }
 }
 
+// Function to fetch weather updates
+async function fetchWeather(event) {
+    event.preventDefault();
+    const location = document.getElementById('location').value;
+
+    if (!location) {
+        alert('Please select a location.');
+        return;
+    }
+
+    try {
+        const response = await fetch(`http://api.weatherapi.com/v1/current.json?key=YOUR_API_KEY&q=${location}`);
+        if (!response.ok) {
+            throw new Error('Failed to fetch weather data.');
+        }
+
+        const weatherData = await response.json();
+        const weatherUpdates = document.getElementById('weather-updates');
+        weatherUpdates.innerHTML = `
+            <p><strong>Location:</strong> ${weatherData.location.name}</p>
+            <p><strong>Temperature:</strong> ${weatherData.current.temp_c}°C</p>
+            <p><strong>Condition:</strong> ${weatherData.current.condition.text}</p>
+        `;
+    } catch (error) {
+        alert(error.message || 'Failed to fetch weather updates.');
+    }
+}
+
 // Function to initialize the page
 function initializePage() {
     if (window.location.pathname.includes('register-labour.html')) {

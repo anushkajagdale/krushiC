@@ -213,14 +213,14 @@
 
                 if (!response.ok) {
                     const errorData = await response.json();
-                    console.error('Error from backend:', errorData);
+                    console.error('Error from backend:', errorData); // Log detailed error
                     throw new Error(errorData.error || 'Failed to submit grain details');
                 }
 
                 alert('Your grain details have been submitted successfully!');
                 form.reset();
             } catch (error) {
-                console.error('Error submitting grain details:', error);
+                console.error('Error submitting grain details:', error); // Log error details
                 alert('Failed to submit grain details. Please try again later.');
             }
         });

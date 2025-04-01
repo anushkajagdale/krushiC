@@ -102,18 +102,6 @@
 
 <body>
     <div id="google_translate_element"></div>
-    <script type="text/javascript">
-        function googleTranslateElementInit() {
-            new google.translate.TranslateElement({
-                pageLanguage: 'en',
-                includedLanguages: 'hi,mr,te,ta,pa,bn,gu,kn,ml', // Add your preferred languages
-                layout: google.translate.TranslateElement.InlineLayout.SIMPLE
-            }, 'google_translate_element');
-        }
-    </script>
-    <script type="text/javascript"
-        src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/kogg/translate/translate.js"></script>
 
     <header class="top-nav">
         <div class="logo-container">
@@ -175,35 +163,22 @@
             const form = document.getElementById('register-labour-form');
             const formData = Object.fromEntries(new FormData(form));
 
-            // Convert rent_per_day to number
-            formData.rent_per_day = Number(formData.rent_per_day);
-
             try {
                 const response = await fetch('http://localhost:3000/api/labour/register', {
                     method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify(formData)
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(formData),
                 });
 
                 if (!response.ok) {
                     const errorData = await response.json();
-                    console.error('Backend Error:', errorData);
                     throw new Error(errorData.error || 'Failed to register labour');
                 }
 
-                const result = await response.json();
-                if (result.success) {
-                    alert('Registration successful!');
-                    form.reset();
-                    window.location.href = 'hire-labour-options.html';
-                } else {
-                    throw new Error(result.error || 'Registration failed');
-                }
+                alert('Registration successful!');
+                form.reset();
             } catch (error) {
                 alert(error.message || 'Registration failed. Please try again.');
-                console.error('Error registering labour:', error);
             }
         }
 

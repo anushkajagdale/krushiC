@@ -55,12 +55,17 @@
         <p>&copy; 2023 GrainConnect. All rights reserved.</p>
     </footer>
     <script>
-        // Simulate user login and display profile details
         document.addEventListener('DOMContentLoaded', () => {
             const isLoggedIn = true; // Replace with actual login check
+            const profileDetailsSection = document.getElementById('profile-details-section');
+            const profileActionsSection = document.getElementById('profile-actions-section');
+
             if (isLoggedIn) {
-                document.getElementById('profile-details-section').classList.remove('hidden');
-                document.getElementById('profile-actions-section').classList.remove('hidden');
+                profileDetailsSection.classList.remove('hidden');
+                profileActionsSection.classList.remove('hidden');
+            } else {
+                profileDetailsSection.classList.add('hidden');
+                profileActionsSection.classList.add('hidden');
             }
         });
     </script>

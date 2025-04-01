@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Order Placement</title>
     <link rel="stylesheet" href="../style.css">
 </head>
+
 <body>
     <header class="top-nav">
         <div class="logo-container">
@@ -34,5 +36,20 @@
     <footer>
         <p>&copy; 2023 GrainConnect. All rights reserved.</p>
     </footer>
+    <script>
+        function placeOrder(event) {
+            event.preventDefault();
+            const quantity = document.getElementById('quantity').value;
+            const delivery = document.getElementById('delivery').value;
+
+            if (!quantity || !delivery) {
+                alert('Please fill in all fields.');
+                return;
+            }
+
+            alert(`Order placed successfully! Quantity: ${quantity}, Delivery: ${delivery}`);
+        }
+    </script>
 </body>
+
 </html>
